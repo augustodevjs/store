@@ -1,5 +1,9 @@
 import { env } from "../configs"
-import { ApiConfig } from "../types";
+
+type ApiConfig = Partial<{
+  baseUrl: string
+  headers: Record<string, string | number | boolean>
+}>
 
 type SetupApiConfig = (overrides?: ApiConfig) => ApiConfig;
 
