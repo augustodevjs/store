@@ -13,10 +13,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Store.Infra.Data\Store.Infra.Data.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Contracts\" />
-    <Folder Include="Dto\InputModel\" />
-    <Folder Include="Dto\ViewModel\" />
-  </ItemGroup>
 </Project>
