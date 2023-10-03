@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "eYT18YexBQTLoQmeE3mCBiKU37a/p7zaeY0iTlSBIlFzYbw8QJ4FmUUsQoZIb62ptT2geIWSCBXRGr7RRTfXpw==",
+  "dgSpecHash": "zr/XELU0B+FNvh1cgI1wrzi3wm/PUXisxGaz1GQi1Y/HJZAAWD89Mk80QMGEVQURYWiWsTmUdwKP5uYJWKyUFw==",
   "success": true,
   "projectFilePath": "C:\\Users\\joaoa\\source\\repos\\teste-tecnico\\backend\\src\\Store.Domain\\Store.Domain.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\joaoa\\.nuget\\packages\\fluentvalidation\\11.7.1\\fluentvalidation.11.7.1.nupkg.sha512",
+    "C:\\Users\\joaoa\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.7.1\\fluentvalidation.dependencyinjectionextensions.11.7.1.nupkg.sha512",
+    "C:\\Users\\joaoa\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\2.1.0\\microsoft.extensions.dependencyinjection.abstractions.2.1.0.nupkg.sha512"
+  ],
   "logs": []
 }
