@@ -1,4 +1,6 @@
-﻿namespace Store.Domain.Entities;
+﻿using System.Collections.ObjectModel;
+
+namespace Store.Domain.Entities;
 
 public class Product : Entity
 {
@@ -8,5 +10,5 @@ public class Product : Entity
     public string Description { get; set; } = null!;
 
     // EF Relation
-    public Client Clients { get; set; }
+    public Collection<Client> Clients { get; set; }
 }

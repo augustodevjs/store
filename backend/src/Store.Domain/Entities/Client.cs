@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using Store.Domain.Contracts;
 
 namespace Store.Domain.Entities;
 
