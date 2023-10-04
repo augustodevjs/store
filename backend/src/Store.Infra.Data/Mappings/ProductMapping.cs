@@ -19,21 +19,19 @@ public class ProductMapping : IEntityTypeConfiguration<Product>
             .HasColumnType("VARCHAR(255)");
         
         builder
-            .Property(c => c.IdClient)
+            .Property(c => c.Price)
             .IsRequired();
         
-        builder
-            .Property(c => c.TotalCost)
-            .IsRequired();
-
         builder
             .Property(c => c.CreatedAt)
             .ValueGeneratedOnAdd()
-            .HasColumnType("timestamp");
-        
+            .HasDefaultValueSql("CURRENT_TIMESTAMP")
+            .HasColumnType("timestamp with time zone");
+
         builder
             .Property(c => c.UpdatedAt)
             .ValueGeneratedOnAddOrUpdate()
-            .HasColumnType("timestamp");
+            .HasDefaultValueSql("CURRENT_TIMESTAMP")
+            .HasColumnType("timestamp with time zone");
     }
 }

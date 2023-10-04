@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Store.Application.Dto.InputModel;
-using Store.Domain.Entities;
 using Store.Application.Dto.ViewModel;
+using Store.Domain.Entities;
 
 namespace Store.Application.AutoMapper;
 
@@ -9,8 +9,12 @@ public class AutoMapperProfile : Profile
 {
     public AutoMapperProfile()
     {
-        CreateMap<Client, ClientViewModel>().ReverseMap();
-        CreateMap<AddClientInputModel, Client>().ReverseMap();
+        #region Product
+
         CreateMap<Product, ProductViewModel>().ReverseMap();
+        CreateMap<AddProductInputModel, Product>().ReverseMap();
+        CreateMap<UpdateProductInputModel, Product>().ReverseMap();
+
+        #endregion
     }
 }

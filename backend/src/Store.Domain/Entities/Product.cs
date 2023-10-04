@@ -1,14 +1,17 @@
-﻿using System.Collections.ObjectModel;
+﻿using Store.Domain.Validators;
+using FluentValidation.Results;
 
 namespace Store.Domain.Entities;
 
 public class Product : Entity
 {
-    public int? IdClient { get; set; }
-    public decimal TotalCost { get; set; }
+    public decimal Price { get; set; }
     public string Title { get; set; } = null!;
     public string Description { get; set; } = null!;
 
-    // EF Relation
-    public Collection<Client> Clients { get; set; }
+    public override bool Validar(out ValidationResult validationResult)
+    {
+        validationResult = new ProductValidator().Validate(this);
+        return validationResult.IsValid;
+    }
 }

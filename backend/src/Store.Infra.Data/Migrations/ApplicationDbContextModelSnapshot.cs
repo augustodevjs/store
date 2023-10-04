@@ -22,21 +22,6 @@ namespace Store.Infra.Data.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("ClientProduct", b =>
-                {
-                    b.Property<int>("ClientsId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ProductsId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("ClientsId", "ProductsId");
-
-                    b.HasIndex("ProductsId");
-
-                    b.ToTable("ClientProduct");
-                });
-
             modelBuilder.Entity("Store.Domain.Entities.Client", b =>
                 {
                     b.Property<int>("Id")
@@ -84,45 +69,28 @@ namespace Store.Infra.Data.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp");
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("VARCHAR(255)");
 
-                    b.Property<int?>("IdClient")
-                        .IsRequired()
-                        .HasColumnType("integer");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("VARCHAR(150)");
 
-                    b.Property<decimal>("TotalCost")
-                        .HasColumnType("numeric");
-
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("timestamp");
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("ClientProduct", b =>
-                {
-                    b.HasOne("Store.Domain.Entities.Client", null)
-                        .WithMany()
-                        .HasForeignKey("ClientsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Store.Domain.Entities.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

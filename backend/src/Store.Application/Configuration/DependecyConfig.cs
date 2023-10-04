@@ -12,8 +12,13 @@ public static class DependecyConfig
     public static void ResolveDependecies(this IServiceCollection services)
     {
         services.AddScoped<INotificator, Notificator>();
+        
+        // Services
         services.AddScoped<IClientService, ClientService>();
-
+        services.AddScoped<IProductService, ProductService>();
+        
+        // Repository
         services.AddScoped<IClientRepository, ClientRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
     }
 }

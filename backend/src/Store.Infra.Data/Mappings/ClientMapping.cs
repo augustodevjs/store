@@ -35,10 +35,6 @@ namespace Store.Infra.Data.Mappings
                 .ValueGeneratedOnAddOrUpdate()
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp with time zone");
-
-            builder
-                .HasMany(c => c.Products)
-                .WithMany(c => c.Clients);
         }
     }
 }
