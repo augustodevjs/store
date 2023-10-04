@@ -1,10 +1,10 @@
 ﻿using System.Linq.Expressions;
-using Store.Application.Dto.InputModel;
-using Store.Application.Dto.ViewModel;
+using Store.Domain.Entities;
 using Store.Application.Services;
+using Store.Application.Dto.ViewModel;
+using Store.Application.Dto.InputModel;
 using Store.Application.Tests.Fixtures;
 using Store.Domain.Contracts.Repository;
-using Store.Domain.Entities;
 
 namespace Store.Application.Tests.Services;
 

@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "neAgkpQanfEBllYWU0Mi7A/c+wWCRNHOo2dTxL0ySkAKLSiaMmrNUfw9sLTe+AraZqniIxxCCkmUkOYsnj7pkw==",
+  "dgSpecHash": "eVIDtlDnZx99ZySh2eINelFHC6vYIzf75e/KHQdgReQ0L9eSple64Qt8X9v2Ra97d/OvOsBwmQD57WmLK8ogRA==",
   "success": true,
   "projectFilePath": "C:\\Users\\joaoa\\source\\repos\\teste-tecnico\\backend\\src\\Store.Application\\Store.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\joaoa\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\joaoa\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
+    "C:\\Users\\joaoa\\.nuget\\packages\\extensions.fluentvalidation.br\\1.0.2\\extensions.fluentvalidation.br.1.0.2.nupkg.sha512",
     "C:\\Users\\joaoa\\.nuget\\packages\\fluentvalidation\\11.7.1\\fluentvalidation.11.7.1.nupkg.sha512",
     "C:\\Users\\joaoa\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.7.1\\fluentvalidation.dependencyinjectionextensions.11.7.1.nupkg.sha512",
     "C:\\Users\\joaoa\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

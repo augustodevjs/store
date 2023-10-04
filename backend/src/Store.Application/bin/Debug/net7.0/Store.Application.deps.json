@@ -38,6 +38,17 @@
           }
         }
       },
+      "Extensions.FluentValidation.Br/1.0.2": {
+        "dependencies": {
+          "FluentValidation": "11.7.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/FluentValidation.Extensions.Br.dll": {
+            "assemblyVersion": "1.0.0.2",
+            "fileVersion": "1.0.0.2"
+          }
+        }
+      },
       "FluentValidation/11.7.1": {
         "runtime": {
           "lib/net7.0/FluentValidation.dll": {
@@ -240,6 +251,7 @@
       },
       "Store.Domain/1.0.0": {
         "dependencies": {
+          "Extensions.FluentValidation.Br": "1.0.2",
           "FluentValidation.DependencyInjectionExtensions": "11.7.1"
         },
         "runtime": {
@@ -278,6 +290,13 @@
       "sha512": "sha512-+g/K+Vpe3gGMKGzjslMOdqNlkikScDjWfVvmWTayrDHaG/n2pPmFBMa+jKX1r/h6BDGFdkyRjAuhFE3ykW+r1g==",
       "path": "automapper.extensions.microsoft.dependencyinjection/12.0.1",
       "hashPath": "automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512"
+    },
+    "Extensions.FluentValidation.Br/1.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ZVoXpIFkUhufHoO3/MkdIMZU0+8Mjy1K9TNd0zroT/J92SqU8V/ryZqVn4Mdbeq2aAC5yrtAhowg8Vd+FjSCSw==",
+      "path": "extensions.fluentvalidation.br/1.0.2",
+      "hashPath": "extensions.fluentvalidation.br.1.0.2.nupkg.sha512"
     },
     "FluentValidation/11.7.1": {
       "type": "package",

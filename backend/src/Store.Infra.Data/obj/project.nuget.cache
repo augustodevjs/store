@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Tl5tQeW7gqP5iEa0UI8s6lBLrw6oL1sOEDzJmIvXHcO1Hm4GKe7ND+6a+lJrJuGunfS9Y6OAeTQYazeuosh97g==",
+  "dgSpecHash": "X5/Dv3ytidIotkF+j2+tTGWi6I9QFc/qnjJpp6b7n+cHNUlecZSDIUkHVn8/uU+TrtxxnHjmCUlEVtIyd62Nxg==",
   "success": true,
   "projectFilePath": "C:\\Users\\joaoa\\source\\repos\\teste-tecnico\\backend\\src\\Store.Infra.Data\\Store.Infra.Data.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\joaoa\\.nuget\\packages\\extensions.fluentvalidation.br\\1.0.2\\extensions.fluentvalidation.br.1.0.2.nupkg.sha512",
     "C:\\Users\\joaoa\\.nuget\\packages\\fluentvalidation\\11.7.1\\fluentvalidation.11.7.1.nupkg.sha512",
     "C:\\Users\\joaoa\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.7.1\\fluentvalidation.dependencyinjectionextensions.11.7.1.nupkg.sha512",
     "C:\\Users\\joaoa\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

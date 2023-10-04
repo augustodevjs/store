@@ -18,6 +18,17 @@
           "Store.Infra.Data.dll": {}
         }
       },
+      "Extensions.FluentValidation.Br/1.0.2": {
+        "dependencies": {
+          "FluentValidation": "11.7.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/FluentValidation.Extensions.Br.dll": {
+            "assemblyVersion": "1.0.0.2",
+            "fileVersion": "1.0.0.2"
+          }
+        }
+      },
       "FluentValidation/11.7.1": {
         "runtime": {
           "lib/net7.0/FluentValidation.dll": {
@@ -278,6 +289,7 @@
       },
       "Store.Domain/1.0.0": {
         "dependencies": {
+          "Extensions.FluentValidation.Br": "1.0.2",
           "FluentValidation.DependencyInjectionExtensions": "11.7.1"
         },
         "runtime": {
@@ -291,6 +303,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Extensions.FluentValidation.Br/1.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ZVoXpIFkUhufHoO3/MkdIMZU0+8Mjy1K9TNd0zroT/J92SqU8V/ryZqVn4Mdbeq2aAC5yrtAhowg8Vd+FjSCSw==",
+      "path": "extensions.fluentvalidation.br/1.0.2",
+      "hashPath": "extensions.fluentvalidation.br.1.0.2.nupkg.sha512"
     },
     "FluentValidation/11.7.1": {
       "type": "package",

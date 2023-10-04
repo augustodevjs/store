@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ZP4b5v7fMCx+pE5Tyn9kjSI3xzCJtqPqTuzxYdixa+R+D6C9lYFy7PZe3whYon3voHl6L4/cGbIDSUBLUDKwbw==",
+  "dgSpecHash": "hACTzNXgfZ0pi0fPmY6eYhW2S1dekLx8BsxAo7Xt8naEpqyE3IuLfARs6i8CoamGXfsqxjUs+RMAwvHjHdqizg==",
   "success": true,
   "projectFilePath": "C:\\Users\\joaoa\\source\\repos\\teste-tecnico\\backend\\tests\\Store.Application.Tests\\Store.Application.Tests.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,7 @@
     "C:\\Users\\joaoa\\.nuget\\packages\\bogus\\34.0.2\\bogus.34.0.2.nupkg.sha512",
     "C:\\Users\\joaoa\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\joaoa\\.nuget\\packages\\coverlet.collector\\3.2.0\\coverlet.collector.3.2.0.nupkg.sha512",
+    "C:\\Users\\joaoa\\.nuget\\packages\\extensions.fluentvalidation.br\\1.0.2\\extensions.fluentvalidation.br.1.0.2.nupkg.sha512",
     "C:\\Users\\joaoa\\.nuget\\packages\\fluentassertions\\6.12.0\\fluentassertions.6.12.0.nupkg.sha512",
     "C:\\Users\\joaoa\\.nuget\\packages\\fluentvalidation\\11.7.1\\fluentvalidation.11.7.1.nupkg.sha512",
     "C:\\Users\\joaoa\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.7.1\\fluentvalidation.dependencyinjectionextensions.11.7.1.nupkg.sha512",
