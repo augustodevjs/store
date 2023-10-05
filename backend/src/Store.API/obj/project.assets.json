@@ -625,6 +625,7 @@
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.1",
+          "Store.Core": "1.0.0",
           "Store.Infra.Data": "1.0.0"
         },
         "compile": {
@@ -632,6 +633,16 @@
         },
         "runtime": {
           "bin/placeholder/Store.Application.dll": {}
+        }
+      },
+      "Store.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/Store.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Store.Core.dll": {}
         }
       },
       "Store.Domain/1.0.0": {
@@ -1831,6 +1842,11 @@
       "type": "project",
       "path": "../Store.Application/Store.Application.csproj",
       "msbuildProject": "../Store.Application/Store.Application.csproj"
+    },
+    "Store.Core/1.0.0": {
+      "type": "project",
+      "path": "../Store.Core/Store.Core.csproj",
+      "msbuildProject": "../Store.Core/Store.Core.csproj"
     },
     "Store.Domain/1.0.0": {
       "type": "project",

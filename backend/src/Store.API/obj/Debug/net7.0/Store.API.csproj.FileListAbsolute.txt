@@ -55,3 +55,5 @@ C:\Users\joaoa\source\repos\teste-tecnico\backend\src\Store.API\obj\Debug\net7.0
 C:\Users\joaoa\source\repos\teste-tecnico\backend\src\Store.API\obj\Debug\net7.0\Store.API.genruntimeconfig.cache
 C:\Users\joaoa\source\repos\teste-tecnico\backend\src\Store.API\obj\Debug\net7.0\ref\Store.API.dll
 C:\Users\joaoa\source\repos\teste-tecnico\backend\src\Store.API\bin\Debug\net7.0\FluentValidation.Extensions.Br.dll
+C:\Users\joaoa\source\repos\teste-tecnico\backend\src\Store.API\bin\Debug\net7.0\Store.Core.dll
+C:\Users\joaoa\source\repos\teste-tecnico\backend\src\Store.API\bin\Debug\net7.0\Store.Core.pdb

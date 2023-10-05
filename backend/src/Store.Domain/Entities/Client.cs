@@ -8,7 +8,8 @@ public class Client : Entity
     public string Cpf { get; set; } = null!;
     public string Name { get; set; } = null!;
     public string Email { get; set; } = null!;
-    
+    public List<Preference> Preferences { get; set; } = new();
+
     public override bool Validar(out ValidationResult validationResult)
     {
         validationResult = new ClientValidator().Validate(this);

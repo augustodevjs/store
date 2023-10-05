@@ -9,6 +9,7 @@
       "Store.Application/1.0.0": {
         "dependencies": {
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.1",
+          "Store.Core": "1.0.0",
           "Store.Infra.Data": "1.0.0"
         },
         "runtime": {
@@ -249,6 +250,11 @@
           }
         }
       },
+      "Store.Core/1.0.0": {
+        "runtime": {
+          "Store.Core.dll": {}
+        }
+      },
       "Store.Domain/1.0.0": {
         "dependencies": {
           "Extensions.FluentValidation.Br": "1.0.2",
@@ -437,6 +443,11 @@
       "sha512": "sha512-Qk5WB/skSZet5Yrz6AN2ywjZaB1pxfAmvQ+5I4khTkLwwIamI4QJoH2NphCWLFQL+2ar8HvsNCTmwYk0qhqL0w==",
       "path": "pomelo.entityframeworkcore.mysql/7.0.0",
       "hashPath": "pomelo.entityframeworkcore.mysql.7.0.0.nupkg.sha512"
+    },
+    "Store.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Store.Domain/1.0.0": {
       "type": "project",

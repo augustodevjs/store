@@ -15,6 +15,7 @@ public class ApplicationDbContext : DbContext, IUnityOfWork
 
     public DbSet<Client> Clients { get; set; } = null!;
     public DbSet<Product> Products { get; set; } = null!;
+    public DbSet<Preference> Preferences { get; set; } = null!;
 
     public async Task<bool> Commit() => await SaveChangesAsync() > 0;
 

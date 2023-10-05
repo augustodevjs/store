@@ -24,5 +24,17 @@ public class AutoMapperProfile : Profile
         CreateMap<UpdateClientInputModel, Client>().ReverseMap();
 
         #endregion
+
+
+        #region Preference
+
+        CreateMap<Preference, ProductViewModel>()
+            .ForMember(dest => dest.Title, opt => opt.MapFrom(c => c.Product.Title))
+            .ForMember(dest => dest.Description, opt => opt.MapFrom(c => c.Product.Description))
+            .ForMember(dest => dest.Price, opt => opt.MapFrom(c => c.Product.Price));
+
+        CreateMap<Preference, CreateReturnViewModel>();
+
+        #endregion
     }
 }

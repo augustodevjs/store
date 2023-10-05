@@ -59,6 +59,39 @@ namespace Store.Infra.Data.Migrations
                     b.ToTable("Clients");
                 });
 
+            modelBuilder.Entity("Store.Domain.Entities.Preference", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ClientId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Preferences");
+                });
+
             modelBuilder.Entity("Store.Domain.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -91,6 +124,35 @@ namespace Store.Infra.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Store.Domain.Entities.Preference", b =>
+                {
+                    b.HasOne("Store.Domain.Entities.Client", "Client")
+                        .WithMany("Preferences")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Store.Domain.Entities.Product", "Product")
+                        .WithMany("Preferences")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Client");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Store.Domain.Entities.Client", b =>
+                {
+                    b.Navigation("Preferences");
+                });
+
+            modelBuilder.Entity("Store.Domain.Entities.Product", b =>
+                {
+                    b.Navigation("Preferences");
                 });
 #pragma warning restore 612, 618
         }

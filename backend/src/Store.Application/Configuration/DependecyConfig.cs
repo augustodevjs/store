@@ -16,9 +16,11 @@ public static class DependecyConfig
         // Services
         services.AddScoped<IClientService, ClientService>();
         services.AddScoped<IProductService, ProductService>();
+        services.AddScoped<IPreferenceService, PreferenceService>();
         
         // Repository
         services.AddScoped<IClientRepository, ClientRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IPreferenceRepository, PreferenceRepository>();
     }
 }

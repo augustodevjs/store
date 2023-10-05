@@ -1,0 +1,3 @@
+
+“csharpsquid:S1939
+"o'BaseService' implements 'IPreferenceService' so 'IPreferenceService' can be removed from the inheritance list.(ßâ»í8øÕò†°1

@@ -379,6 +379,16 @@
           }
         }
       },
+      "Store.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/Store.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Store.Core.dll": {}
+        }
+      },
       "Store.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
@@ -999,6 +1009,11 @@
         "pomelo.entityframeworkcore.mysql.nuspec"
       ]
     },
+    "Store.Core/1.0.0": {
+      "type": "project",
+      "path": "../Store.Core/Store.Core.csproj",
+      "msbuildProject": "../Store.Core/Store.Core.csproj"
+    },
     "Store.Domain/1.0.0": {
       "type": "project",
       "path": "../Store.Domain/Store.Domain.csproj",
@@ -1013,6 +1028,7 @@
   "projectFileDependencyGroups": {
     "net7.0": [
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 12.0.1",
+      "Store.Core >= 1.0.0",
       "Store.Infra.Data >= 1.0.0"
     ]
   },
@@ -1043,6 +1059,9 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
+            "C:\\Users\\joaoa\\source\\repos\\teste-tecnico\\backend\\src\\Store.Core\\Store.Core.csproj": {
+              "projectPath": "C:\\Users\\joaoa\\source\\repos\\teste-tecnico\\backend\\src\\Store.Core\\Store.Core.csproj"
+            },
             "C:\\Users\\joaoa\\source\\repos\\teste-tecnico\\backend\\src\\Store.Infra.Data\\Store.Infra.Data.csproj": {
               "projectPath": "C:\\Users\\joaoa\\source\\repos\\teste-tecnico\\backend\\src\\Store.Infra.Data\\Store.Infra.Data.csproj"
             }
