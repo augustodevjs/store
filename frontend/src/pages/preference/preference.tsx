@@ -39,7 +39,6 @@ export const Preference = () => {
   return (
     <>
       <Header />
-
       <S.Container>
         <Select options={optionsClient} />
         <Select options={optionsProduct} />
