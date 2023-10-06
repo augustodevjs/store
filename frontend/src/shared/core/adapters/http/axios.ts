@@ -14,7 +14,7 @@ export class AxiosHttpClient implements HttpClient {
     return new AxiosHttpClient(apiConfig);
   }
 
-  async request<TRequest = unknown, TResponse = unknown>(
+  async request<TRequest = any, TResponse = any>(
     input: HttpClientInput<TRequest>
   ): Promise<HttpClientOutput<TResponse>> {
     let response: AxiosResponse;

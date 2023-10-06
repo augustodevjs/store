@@ -7,7 +7,7 @@ type ApiConfig = Partial<{
 
 type SetupApiConfig = (overrides?: ApiConfig) => ApiConfig;
 
-export const setupTodoApiConfig: SetupApiConfig = () => {
+export const setupStoreApiConfig: SetupApiConfig = () => {
   return {
     baseUrl: env.apis.store.baseUrl,
   }
