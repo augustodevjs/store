@@ -100,13 +100,16 @@ public class ClientService : BaseService, IClientService
     private async Task<bool> Validate(Client client)
     {
         if (!client.Validar(out var validationResult))
+        {
             Notificator.Handle(validationResult.Errors);
+            return false;
+        }
 
-        var clientInfo = await _clientRepository.FirstOrDefault(u => u.Email == client.Email || u.Cpf == client.Cpf);
+        var existingClient = await _clientRepository.FirstOrDefault(u => u.Id != client.Id && (u.Email == client.Email || u.Cpf == client.Cpf));
 
-        if (clientInfo != null)
-            Notificator.Handle("Já existe uma usuário com essas informações.");
-
-        return !Notificator.HasNotification;
+        if (existingClient == null) return true;
+        
+        Notificator.Handle("Já existe um cliente com essas informações.");
+        return false;
     }
 }

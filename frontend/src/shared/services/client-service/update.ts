@@ -18,7 +18,7 @@ export const update = async ({ data, id }: Input): Promise<FormClientUpdateInput
     case HttpStatusCode.Ok:
       return response.body as FormClientUpdateInputModel;
     case HttpStatusCode.BadRequest:
-      throw new ValidationError(response.body);
+      throw new ValidationError(response.body.erros);
     case HttpStatusCode.NotFound:
       throw new NotFoundError();
     default:

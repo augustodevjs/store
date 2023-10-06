@@ -6,53 +6,17 @@ export const Container = styled.div`
   padding: 2rem;
   display: flex;
   flex-direction: column;
-`;
-
-export const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-
-  @media(max-width: 550px) {
-    flex-direction: column;
-    text-align: center;
-  }
-`;
-
-export const Content = styled.div`
-  img {
-    width: 6.5rem;
-  }
 
   h1 {
     font-size: 1.75rem;
-  }
-
-  p {
-    font-size: 1rem;
-  }
-`;
-
-export const ButtonGroup = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-
-  @media(max-width: 550px) {
-    margin-top: 1rem;
-  }
-
-  button {
-    padding: 0.9rem 1.75rem;
-    width: max-content;
+    margin-bottom: 0.5rem;
   }
 `;
 
 export const Tasks = styled.main`
   ul {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 1rem;
 
     li {
@@ -73,6 +37,20 @@ export const Tasks = styled.main`
     }
   }
 `
+
+export const Search = styled.div`
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+
+  .select__control {
+    width: 280px !important;
+  }
+
+  button {
+    width: 100px;
+  }
+`;
 
 export const NoData = styled.div`
   background-color: #29292e;

@@ -7,6 +7,10 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  li {
+    list-style: none;
+  }
+
   input, textarea {
     transition: box-shadow 0.3s;
     :focus {

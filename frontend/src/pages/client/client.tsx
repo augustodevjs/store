@@ -1,5 +1,5 @@
 import * as S from './styles'
-import { Alert, Button, clientViewModel, useModal } from "../../shared"
+import { Alert, Button, Header, clientViewModel, useModal } from "../../shared"
 import { AddClientModal, Table, RemoveClientModal, EditClientModal } from "./components"
 import { useEffect, useState } from 'react'
 import { ClientService } from '../../shared/services'
@@ -39,59 +39,62 @@ export const Client = () => {
   }, [])
 
   return (
-    <S.Container>
-      <S.Header>
-        <S.Content>
-          <h1>Cadastro de Clientes</h1>
-        </S.Content>
+    <>
+      <Header />
+      <S.Container>
+        <S.Header>
+          <S.Content>
+            <h1>Listagem de clientes</h1>
+          </S.Content>
 
-        <S.ButtonGroup>
-          <Button onClick={openAddModal}>Novo Cliente</Button>
-        </S.ButtonGroup>
-      </S.Header>
+          <S.ButtonGroup>
+            <Button onClick={openAddModal}>Novo Cliente</Button>
+          </S.ButtonGroup>
+        </S.Header>
 
-      {data.length !== 0 ? (
+        {data.length !== 0 ? (
 
-        <S.Tasks>
-          <ul>
-            {data.map(data => (
-              <Table
-                key={data.id}
-                name={data.name}
-                cpf={data.cpf}
-                email={data.email}
-                onDelete={() => handleRemove(data)}
-                onEdit={() => handleEdit(data)}
-              />
-            ))}
-          </ul>
-        </S.Tasks>
-      ) : (
-        <S.NoData>
-          Não há registros para exibir
-        </S.NoData>
-      )}
+          <S.Tasks>
+            <ul>
+              {data.map(data => (
+                <Table
+                  key={data.id}
+                  name={data.name}
+                  cpf={data.cpf}
+                  email={data.email}
+                  onDelete={() => handleRemove(data)}
+                  onEdit={() => handleEdit(data)}
+                />
+              ))}
+            </ul>
+          </S.Tasks>
+        ) : (
+          <S.NoData>
+            Não há registros para exibir
+          </S.NoData>
+        )}
 
-      <AddClientModal
-        setData={setData}
-        isOpen={isAddModalOpen}
-        onRequestClose={closeAddModal}
-      />
+        <AddClientModal
+          setData={setData}
+          isOpen={isAddModalOpen}
+          onRequestClose={closeAddModal}
+        />
 
-      <RemoveClientModal
-        id={selectedClient?.id.toString()}
-        setData={setData}
-        name={selectedClient?.name}
-        isOpen={isRemoveModalOpen}
-        onRequestClose={closeRemoveModal}
-      />
+        <RemoveClientModal
+          id={selectedClient?.id.toString()}
+          setData={setData}
+          name={selectedClient?.name}
+          isOpen={isRemoveModalOpen}
+          onRequestClose={closeRemoveModal}
+        />
 
-      <EditClientModal
-        setData={setData}
-        id={selectedClient?.id.toString()}
-        isOpen={isEditModalOpen}
-        onRequestClose={closeEditModal}
-      />
-    </S.Container>
+        <EditClientModal
+          setData={setData}
+          id={selectedClient?.id.toString()}
+          isOpen={isEditModalOpen}
+          onRequestClose={closeEditModal}
+        />
+      </S.Container>
+    </>
   )
 }

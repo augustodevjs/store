@@ -133,7 +133,7 @@ public class ClientServiceTests : BaseServiceTest, IClassFixture<ServicesFixture
     }
 
     [Fact]
-    public async Task Create_Client_HandleErrorWhenAlreadyExistTitle()
+    public async Task Create_Client_HandleErrorWhenAlreadyExistEmailOrCpf()
     {
         // Arrange
         SetupMocks();
@@ -152,7 +152,7 @@ public class ClientServiceTests : BaseServiceTest, IClassFixture<ServicesFixture
         {
             Erros.Should().NotBeEmpty();
             clientService.Should().BeNull();
-            Erros.Should().Contain("Já existe uma usuário com essas informações.");
+            Erros.Should().Contain("Já existe um cliente com essas informações.");
             NotificatorMock.Verify(c => c.Handle(It.IsAny<string>()), Times.Once);
             NotificatorMock.Verify(c => c.Handle(It.IsAny<List<ValidationFailure>>()), Times.Never);
             _clientRepositoryMock.Verify(c => c.UnityOfWork.Commit(), Times.Never);
@@ -308,7 +308,7 @@ public class ClientServiceTests : BaseServiceTest, IClassFixture<ServicesFixture
         {
             Erros.Should().NotBeEmpty();
             clientService.Should().BeNull();
-            Erros.Should().Contain("Já existe uma usuário com essas informações.");
+            Erros.Should().Contain("Já existe um cliente com essas informações.");
             NotificatorMock.Verify(c => c.Handle(It.IsAny<string>()), Times.Once);
             NotificatorMock.Verify(c => c.Handle(It.IsAny<List<ValidationFailure>>()), Times.Never);
             _clientRepositoryMock.Verify(c => c.UnityOfWork.Commit(), Times.Never);

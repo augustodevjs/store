@@ -21,7 +21,6 @@ public class ProductService : BaseService, IProductService
     public async Task<List<ProductViewModel>> GetAll()
     {
         var getAllProducts = await _productRepository.GetAll();
-
         return Mapper.Map<List<ProductViewModel>>(getAllProducts);
     }
 

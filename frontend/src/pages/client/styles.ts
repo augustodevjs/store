@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  max-width: 850px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
   display: flex;
@@ -15,14 +15,18 @@ export const Header = styled.div`
   margin-bottom: 2rem;
 
   @media(max-width: 550px) {
-    flex-direction: column;
     text-align: center;
+    flex-direction: column;
   }
 `;
 
 export const Content = styled.div`
   img {
     width: 6.5rem;
+  }
+
+  h1 {
+    font-size: 1.75rem;
   }
 
   p {
