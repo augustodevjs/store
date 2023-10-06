@@ -131,33 +131,7 @@ public class ProductServiceTests : BaseServiceTest, IClassFixture<ServicesFixtur
             NotificatorMock.Verify(c => c.Handle(It.IsAny<List<ValidationFailure>>()), Times.Once);
         }
     }
-
-    [Fact]
-    public async Task Create_Product_HandleErrorWhenAlreadyExistTitle()
-    {
-        // Arrange
-        SetupMocks();
-        var productInputModel = new AddProductInputModel
-        {
-            Title = "Teste",
-            Price = 10,
-            Description = "Teste",
-        };
-
-        // Act
-        var productService = await _productService.Create(productInputModel);
-
-        // Assert
-        using (new AssertionScope())
-        {
-            Erros.Should().NotBeEmpty();
-            productService.Should().BeNull();
-            Erros.Should().Contain("Já existe uma produto com esse título.");
-            NotificatorMock.Verify(c => c.Handle(It.IsAny<string>()), Times.Once);
-            NotificatorMock.Verify(c => c.Handle(It.IsAny<List<ValidationFailure>>()), Times.Never);
-            _productRepositoryMock.Verify(c => c.UnityOfWork.Commit(), Times.Never);
-        }
-    }
+    
 
     [Fact]
     public async Task Create_Product_HandleErrorUnityOfWorkCommit()
@@ -284,34 +258,6 @@ public class ProductServiceTests : BaseServiceTest, IClassFixture<ServicesFixtur
             productService.Should().BeNull();
             Erros.Should().NotBeEmpty();
             NotificatorMock.Verify(c => c.Handle(It.IsAny<List<ValidationFailure>>()), Times.Once);
-        }
-    }
-    
-    [Fact]
-    public async Task Update_Product_HandleErrorWhenAlreadyExistTitle()
-    {
-        // Arrange
-        SetupMocks();
-        var productInputModel = new UpdateProductInputModel
-        {
-            Id = 1,
-            Title = "Teste",
-            Price = 10,
-            Description = "Teste",
-        };
-    
-        // Act
-        var productService = await _productService.Update(1, productInputModel);
-    
-        // Assert
-        using (new AssertionScope())
-        {
-            Erros.Should().NotBeEmpty();
-            productService.Should().BeNull();
-            Erros.Should().Contain("Já existe uma produto com esse título.");
-            NotificatorMock.Verify(c => c.Handle(It.IsAny<string>()), Times.Once);
-            NotificatorMock.Verify(c => c.Handle(It.IsAny<List<ValidationFailure>>()), Times.Never);
-            _productRepositoryMock.Verify(c => c.UnityOfWork.Commit(), Times.Never);
         }
     }
     

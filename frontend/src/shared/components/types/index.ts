@@ -59,4 +59,5 @@ export interface TextAreaInputProps
   extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: string;
   isRequired?: boolean;
+  error?: string;
 }

@@ -123,8 +123,6 @@ i
 9src/Store.Infra.Data/Repositories/PreferenceRepository.cs,8\f\8f3c8abcea24139a2585e5fb9b72d9d7caa273fe
 o
 ?src/Store.Application/Dto/InputModel/AddPreferenceInputModel.cs,0\4\044d861d8f61cb1721b47e019ce948fb7599971e
-j
-:src/Store.Application/Dto/ViewModel/PreferenceViewModel.cs,1\3\1350fc48aec39b6cd56d77a22fa842b4e611376a
 W
 'src/Store.Domain/Entities/Preference.cs,0\8\08ffd771f0f968721c0b33d074d6e26d3aaf7c6f
 n
@@ -135,3 +133,7 @@ b
 2src/Store.Infra.Data/Mappings/PreferenceMapping.cs,6\3\6334f81eb77507e8343c3187c439c015080bef54
 c
 3src/Store.Application/Services/PreferenceService.cs,f\b\fb87f4893e88ded02cf6c8944251a5053695629f
+l
+<src/Store.Application/Dto/ViewModel/CreateReturnViewModel.cs,7\1\7186839e678efbbe4ad95194343627f33f293388
+S
+#src/Store.Core/Utils/NumberUtils.cs,c\7\c7ffc2c0859811e9e322e1399f37d2e0ca4801fc

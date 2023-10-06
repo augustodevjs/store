@@ -16,7 +16,7 @@ export const ClientForm: React.FC<Props> = ({ onSubmit, id }) => {
         type="text"
         label="Nome"
         isRequired
-        placeholder="Digite o nome da lista"
+        placeholder="Digite o seu nome"
         error={formState.errors.name?.message}
         {...register('name')}
       />

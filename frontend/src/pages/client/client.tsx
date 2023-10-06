@@ -9,9 +9,8 @@ export const Client = () => {
   const [selectedClient, setSelectedClient] = useState<clientViewModel>();
 
   const [isAddModalOpen, openAddModal, closeAddModal] = useModal();
-  const [isRemoveModalOpen, openRemoveModal, closeRemoveModal] = useModal();
   const [isEditModalOpen, openEditModal, closeEditModal] = useModal();
-
+  const [isRemoveModalOpen, openRemoveModal, closeRemoveModal] = useModal();
 
   const handleEdit = (list: clientViewModel) => {
     setSelectedClient(list);
