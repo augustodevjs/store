@@ -10,17 +10,20 @@ public class PreferenceServiceTests : BaseServiceTest, IClassFixture<ServicesFix
 {
     private readonly PreferenceService _preferenceService;
     private readonly Mock<IClientRepository> _clientRepositoryMock;
+    private readonly Mock<IProductRepository> _productRepositoryMock;
     private readonly Mock<IPreferenceRepository> _preferenceRepositoryMock;
 
     public PreferenceServiceTests(ServicesFixtures servicesFixtures)
     {
         _clientRepositoryMock = new Mock<IClientRepository>();
+        _productRepositoryMock = new Mock<IProductRepository>();
         _preferenceRepositoryMock = new Mock<IPreferenceRepository>();
         _preferenceService = new PreferenceService(
             servicesFixtures.Mapper,
             NotificatorMock.Object,
-            _preferenceRepositoryMock.Object,
-            _clientRepositoryMock.Object
+            _clientRepositoryMock.Object,
+            _productRepositoryMock.Object,
+            _preferenceRepositoryMock.Object
         );
     }
     

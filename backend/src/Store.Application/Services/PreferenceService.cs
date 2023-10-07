@@ -10,15 +10,22 @@ namespace Store.Application.Services;
 
 public class PreferenceService : BaseService, IPreferenceService
 {
-    private readonly IPreferenceRepository _preferenceRepository;
     private readonly IClientRepository _clientRepository;
+    private readonly IProductRepository _productRepository;
+    private readonly IPreferenceRepository _preferenceRepository;
 
-    public PreferenceService(IMapper mapper, INotificator notificator, IPreferenceRepository preferenceRepository,
-        IClientRepository clientRepository) :
+    public PreferenceService(
+        IMapper mapper,
+        INotificator notificator,
+        IClientRepository clientRepository,
+        IProductRepository productRepository,
+        IPreferenceRepository preferenceRepository
+    ) :
         base(mapper, notificator)
     {
-        _preferenceRepository = preferenceRepository;
         _clientRepository = clientRepository;
+        _productRepository = productRepository;
+        _preferenceRepository = preferenceRepository;
     }
 
     public async Task<List<CreateReturnViewModel>?> Create(AddPreferenceInputModel inputModel)
@@ -37,24 +44,22 @@ public class PreferenceService : BaseService, IPreferenceService
             return null;
         }
 
-        var createdPreferences = new List<Preference>();
+        var createdPreferences = await CreatePreferences(inputModel.ListIdProducts, inputModel.IdClient);
 
-        foreach (var preference in inputModel.ListIdProducts.Select(productId => new Preference
-                 {
-                     ClientId = inputModel.IdClient,
-                     ProductId = productId
-                 }))
+        if (createdPreferences == null)
         {
-            _preferenceRepository.Create(preference);
-            createdPreferences.Add(preference);
+            return null;
         }
 
         if (await _preferenceRepository.UnityOfWork.Commit())
+        {
             return Mapper.Map<List<CreateReturnViewModel>>(createdPreferences);
+        }
 
         Notificator.Handle("Não foi possível cadastrar a preferência.");
         return null;
     }
+
 
     public async Task<List<ProductViewModel>?> GetPreferencesByUser(int id)
     {
@@ -64,6 +69,43 @@ public class PreferenceService : BaseService, IPreferenceService
             return Mapper.Map<List<ProductViewModel>>(getPreferenceUser);
 
         Notificator.HandleNotFoundResource();
+        return null;
+    }
+
+    private async Task<List<Preference>?> CreatePreferences(List<int> productIds, int clientId)
+    {
+        var createdPreferences = new List<Preference>();
+        var invalidProductIds = new List<int>();
+
+        foreach (var productId in productIds)
+        {
+            var product = await _productRepository.GetById(productId);
+
+            if (product == null)
+            {
+                invalidProductIds.Add(productId);
+            }
+            else
+            {
+                var preference = new Preference
+                {
+                    ClientId = clientId,
+                    ProductId = productId
+                };
+
+                _preferenceRepository.Create(preference);
+                createdPreferences.Add(preference);
+            }
+        }
+
+        if (invalidProductIds.Count <= 0)
+            return createdPreferences;
+
+        foreach (var invalidProductId in invalidProductIds)
+        {
+            Notificator.Handle($"O produto com o ID {invalidProductId} não existe.");
+        }
+
         return null;
     }
 }

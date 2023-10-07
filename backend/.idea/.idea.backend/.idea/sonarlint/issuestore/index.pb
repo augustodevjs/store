@@ -137,3 +137,5 @@ l
 <src/Store.Application/Dto/ViewModel/CreateReturnViewModel.cs,7\1\7186839e678efbbe4ad95194343627f33f293388
 S
 #src/Store.Core/Utils/NumberUtils.cs,c\7\c7ffc2c0859811e9e322e1399f37d2e0ca4801fc
+p
+@tests/Store.Application.Tests/Services/PreferenceServiceTests.cs,c\5\c5b19e3f61d9560433dd9e32d6510b1d22a6c577
