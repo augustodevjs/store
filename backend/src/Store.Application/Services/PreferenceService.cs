@@ -28,27 +28,34 @@ public class PreferenceService : BaseService, IPreferenceService
         _preferenceRepository = preferenceRepository;
     }
 
-    public async Task<List<CreateReturnViewModel>?> Create(AddPreferenceInputModel inputModel)
+    public async Task<List<CreateReturnViewModel>?> Create(List<AddPreferenceInputModel> inputModels)
     {
-        var getClient = await _clientRepository.GetById(inputModel.IdClient);
+        var createdPreferences = new List<Preference>();
 
-        if (!inputModel.Validar(out var validationResult))
+        foreach (var inputModel in inputModels)
         {
-            Notificator.Handle(validationResult.Errors);
-            return null;
-        }
+            var getClient = await _clientRepository.GetById(inputModel.IdClient);
 
-        if (getClient == null)
-        {
-            Notificator.Handle("Não foi possível encontrar esse usuário.");
-            return null;
-        }
+            if (!inputModel.Validar(out var validationResult))
+            {
+                Notificator.Handle(validationResult.Errors);
+                return null; 
+            }
 
-        var createdPreferences = await CreatePreferences(inputModel.ListIdProducts, inputModel.IdClient);
+            if (getClient == null)
+            {
+                Notificator.Handle("Não foi possível encontrar esse usuário.");
+                return null; 
+            }
 
-        if (createdPreferences == null)
-        {
-            return null;
+            var preference = await CreatePreference(inputModel.IdProducts, inputModel.IdClient); // Ajustado para IdProducts
+
+            if (preference == null)
+            {
+                return null; 
+            }
+
+            createdPreferences.Add(preference);
         }
 
         if (await _preferenceRepository.UnityOfWork.Commit())
@@ -60,6 +67,28 @@ public class PreferenceService : BaseService, IPreferenceService
         return null;
     }
 
+    private async Task<Preference?> CreatePreference(int productId, int clientId) // Ajustado para receber productId
+    {
+        var product = await _productRepository.GetById(productId);
+
+        if (product == null)
+        {
+            Notificator.Handle($"O produto com o ID {productId} não existe.");
+            return null;
+        }
+
+        var preference = new Preference
+        {
+            ClientId = clientId,
+            ProductId = productId
+        };
+
+        _preferenceRepository.Create(preference);
+    
+        return preference;
+    }
+
+    
 
     public async Task<List<ProductViewModel>?> GetPreferencesByUser(int id)
     {
@@ -72,40 +101,22 @@ public class PreferenceService : BaseService, IPreferenceService
         return null;
     }
 
-    private async Task<List<Preference>?> CreatePreferences(List<int> productIds, int clientId)
+    public async Task Delete(int id)
     {
-        var createdPreferences = new List<Preference>();
-        var invalidProductIds = new List<int>();
+        var getPreference = await _preferenceRepository.GetById(id);
 
-        foreach (var productId in productIds)
+        if (getPreference == null)
         {
-            var product = await _productRepository.GetById(productId);
-
-            if (product == null)
-            {
-                invalidProductIds.Add(productId);
-            }
-            else
-            {
-                var preference = new Preference
-                {
-                    ClientId = clientId,
-                    ProductId = productId
-                };
-
-                _preferenceRepository.Create(preference);
-                createdPreferences.Add(preference);
-            }
+            Notificator.HandleNotFoundResource();
+            return;
         }
 
-        if (invalidProductIds.Count <= 0)
-            return createdPreferences;
+        _preferenceRepository.Delete(getPreference);
 
-        foreach (var invalidProductId in invalidProductIds)
+        if (!await _preferenceRepository.UnityOfWork.Commit())
         {
-            Notificator.Handle($"O produto com o ID {invalidProductId} não existe.");
+            Notificator.Handle("Não foi possível remover a preferência.");
         }
-
-        return null;
     }
+
 }

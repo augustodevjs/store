@@ -70,7 +70,7 @@ export const Client = () => {
           </S.Tasks>
         ) : (
           <S.NoData>
-            Não há registros para exibir
+            Não há clientes para exibir
           </S.NoData>
         )}
 

@@ -327,16 +327,10 @@
       "Store.Application/1.0.0": {
         "dependencies": {
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.1",
-          "Store.Core": "1.0.0",
           "Store.Infra.Data": "1.0.0"
         },
         "runtime": {
           "Store.Application.dll": {}
-        }
-      },
-      "Store.Core/1.0.0": {
-        "runtime": {
-          "Store.Core.dll": {}
         }
       },
       "Store.Domain/1.0.0": {
@@ -634,11 +628,6 @@
       "hashPath": "system.text.json.7.0.0.nupkg.sha512"
     },
     "Store.Application/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Store.Core/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

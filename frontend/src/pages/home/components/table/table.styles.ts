@@ -17,3 +17,18 @@ export const Container = styled.li`
     }
   }
 `;
+
+export const IconGroup = styled.div`
+  display: flex;
+  gap: 0.75rem;
+
+  svg {
+      fill: #F75A68;
+  }
+
+  svg {
+    width: 1.15rem;
+    height: 1.15rem;
+    cursor: pointer;
+  }
+`

@@ -16,7 +16,7 @@ export const Container = styled.div`
 export const Tasks = styled.main`
   ul {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 1rem;
 
     li {
@@ -41,10 +41,12 @@ export const Tasks = styled.main`
 export const Search = styled.div`
   display: flex;
   gap: 2rem;
+  justify-content: space-between;
   margin-bottom: 2rem;
 
-  .select__control {
-    width: 280px !important;
+  .filter {
+    display: flex;
+    gap: 1rem;
   }
 
   button {
@@ -59,3 +61,32 @@ export const NoData = styled.div`
   color: #e1e1e6;
   width: 100%;
 `
+
+export const ButtonGroup = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  @media(max-width: 550px) {
+    margin-top: 1rem;
+  }
+
+  button {
+    padding: 0.9rem 1.75rem;
+    width: max-content;
+  }
+`;
+
+export const SaveButtonGroup = styled.div`
+  display: flex;
+  justify-content: end;
+  gap: 1rem;
+  margin-top: 1rem;
+
+  button {
+    width: 150px;
+  }
+
+  button:first-child {
+    background-color: #F75A68;
+  }
+`;

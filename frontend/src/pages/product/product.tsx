@@ -71,7 +71,7 @@ export const Product = () => {
           </S.Tasks>
         ) : (
           <S.NoData>
-            Não há registros para exibir
+            Não há produtos para exibir
           </S.NoData>
         )}
 

@@ -139,3 +139,7 @@ S
 #src/Store.Core/Utils/NumberUtils.cs,c\7\c7ffc2c0859811e9e322e1399f37d2e0ca4801fc
 p
 @tests/Store.Application.Tests/Services/PreferenceServiceTests.cs,c\5\c5b19e3f61d9560433dd9e32d6510b1d22a6c577
+t
+Dsrc/Store.Infra.Data/Migrations/ApplicationDbContextModelSnapshot.cs,9\f\9fd59f81e1df604418db19bf59e819621c852157
+i
+9src/Store.Infra.Data/Migrations/20231005172019_Initial.cs,2\8\2802edfc81d659e224ce8d04ad131faa0844957a

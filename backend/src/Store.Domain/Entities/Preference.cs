@@ -1,6 +1,4 @@
-﻿using FluentValidation.Results;
-
-namespace Store.Domain.Entities;
+﻿namespace Store.Domain.Entities;
 
 public class Preference : Entity
 {

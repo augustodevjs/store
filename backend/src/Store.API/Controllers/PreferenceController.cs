@@ -17,16 +17,6 @@ public class PreferenceController : MainController
         _preferenceService = preferenceService;
     }
     
-    [HttpPost]
-    [SwaggerOperation("Add a new preference")]
-    [ProducesResponseType(typeof(List<CreateReturnViewModel>), StatusCodes.Status201Created)]
-    [ProducesResponseType(typeof(BadRequestResult), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Create([FromBody] AddPreferenceInputModel inputModel)
-    { 
-        var preference = await _preferenceService.Create(inputModel);
-        return OkResponse(preference);
-    }
-    
     [HttpGet("products/{id}/user")]
     [SwaggerOperation(Summary = "Get a user's product preference.")]
     [ProducesResponseType(typeof(ProductViewModel), StatusCodes.Status200OK)]
@@ -35,5 +25,25 @@ public class PreferenceController : MainController
     {
         var getPreferenceUser = await _preferenceService.GetPreferencesByUser(id);
         return OkResponse(getPreferenceUser);
+    }
+    
+    [HttpPost]
+    [SwaggerOperation("Add a new preference")]
+    [ProducesResponseType(typeof(List<CreateReturnViewModel>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BadRequestResult), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> Create([FromBody] List<AddPreferenceInputModel> inputModel)
+    { 
+        var preference = await _preferenceService.Create(inputModel);
+        return OkResponse(preference);
+    }
+    
+    [HttpDelete("{id}")]
+    [SwaggerOperation("Delete a preference")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Delete(int id)
+    {
+        await _preferenceService.Delete(id);
+        return NoContentResponse();
     }
 }

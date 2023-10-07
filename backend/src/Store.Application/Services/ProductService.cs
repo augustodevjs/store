@@ -96,11 +96,21 @@ public class ProductService : BaseService, IProductService
         }
     }
 
-    private Task<bool> Validate(Product product)
+    private async Task<bool> Validate(Product product)
     {
         if (!product.Validar(out var validationResult))
+        {
             Notificator.Handle(validationResult.Errors);
+            return false;
+        }
 
-        return Task.FromResult(!Notificator.HasNotification);
+        var existingProduct =
+            await _productRepository.FirstOrDefault(u => u.Id != product.Id && (u.Title == product.Title));
+
+        if (existingProduct == null) return true;
+        
+        Notificator.Handle("Já existe um produto com esse nome.");
+        
+        return false;
     }
 }

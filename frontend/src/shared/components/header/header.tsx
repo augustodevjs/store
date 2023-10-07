@@ -13,8 +13,7 @@ export const Header = () => {
       <div>
         <h1>Store</h1>
         <S.Links>
-          <li onClick={() => handleNavigate('/home')}>Home</li>
-          <li onClick={() => handleNavigate('/preferences')}>Preferências</li>
+          <li onClick={() => handleNavigate('/preference')}>Preferência</li>
           <li onClick={() => handleNavigate('/product')}>Produtos</li>
           <li onClick={() => handleNavigate('/client')}>Clientes</li>
         </S.Links>

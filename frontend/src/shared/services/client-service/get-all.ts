@@ -8,8 +8,6 @@ export const getAll = async (): Promise<clientViewModel[]> => {
     method: "GET",
   });
 
-  console.log(response);
-
   switch (response.statusCode) {
     case HttpStatusCode.Ok:
       return response.body as clientViewModel[];
