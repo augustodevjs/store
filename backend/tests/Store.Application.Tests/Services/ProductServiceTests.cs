@@ -131,7 +131,6 @@ public class ProductServiceTests : BaseServiceTest, IClassFixture<ServicesFixtur
             NotificatorMock.Verify(c => c.Handle(It.IsAny<List<ValidationFailure>>()), Times.Once);
         }
     }
-    
 
     [Fact]
     public async Task Create_Product_HandleErrorUnityOfWorkCommit()
@@ -156,6 +155,34 @@ public class ProductServiceTests : BaseServiceTest, IClassFixture<ServicesFixtur
             Erros.Should().NotBeEmpty();
             Erros.Should().Contain("Não foi possível cadastrar o produto.");
             _productRepositoryMock.Verify(c => c.UnityOfWork.Commit(), Times.Once);
+            NotificatorMock.Verify(c => c.Handle(It.IsAny<string>()), Times.Once);
+            NotificatorMock.Verify(c => c.Handle(It.IsAny<List<ValidationFailure>>()), Times.Never);
+        }
+    }
+
+    [Fact]
+    public async Task Create_Product_ReturnHandleErrorProductNameAlreadyExist()
+    {
+        // Arrange
+        SetupMocks(true, false);
+
+        var productInputModel = new AddProductInputModel
+        {
+            Title = "Teste",
+            Price = 10,
+            Description = "Teste",
+        };
+
+        // Act
+        var productService = await _productService.Create(productInputModel);
+
+        // Assert
+        using (new AssertionScope())
+        {
+            productService.Should().BeNull();
+            Erros.Should().NotBeEmpty();
+            Erros.Should().Contain("Já existe um produto com esse nome.");
+            _productRepositoryMock.Verify(c => c.UnityOfWork.Commit(), Times.Never);
             NotificatorMock.Verify(c => c.Handle(It.IsAny<string>()), Times.Once);
             NotificatorMock.Verify(c => c.Handle(It.IsAny<List<ValidationFailure>>()), Times.Never);
         }
@@ -285,6 +312,35 @@ public class ProductServiceTests : BaseServiceTest, IClassFixture<ServicesFixtur
             Erros.Should().NotBeEmpty();
             Erros.Should().Contain("Não foi possível atualizar o produto.");
             _productRepositoryMock.Verify(c => c.UnityOfWork.Commit(), Times.Once);
+            NotificatorMock.Verify(c => c.Handle(It.IsAny<string>()), Times.Once);
+            NotificatorMock.Verify(c => c.Handle(It.IsAny<List<ValidationFailure>>()), Times.Never);
+        }
+    }
+    
+    [Fact]
+    public async Task Update_Product_ReturnHandleErrorProductNameAlreadyExist()
+    {
+        // Arrange
+        SetupMocks(true, false);
+
+        var productInputModel = new UpdateProductInputModel
+        {
+            Id = 1,
+            Title = "Teste",
+            Price = 10,
+            Description = "Teste",
+        };
+
+        // Act
+        var productService = await _productService.Update(1, productInputModel);
+
+        // Assert
+        using (new AssertionScope())
+        {
+            productService.Should().BeNull();
+            Erros.Should().NotBeEmpty();
+            Erros.Should().Contain("Já existe um produto com esse nome.");
+            _productRepositoryMock.Verify(c => c.UnityOfWork.Commit(), Times.Never);
             NotificatorMock.Verify(c => c.Handle(It.IsAny<string>()), Times.Once);
             NotificatorMock.Verify(c => c.Handle(It.IsAny<List<ValidationFailure>>()), Times.Never);
         }
