@@ -3,10 +3,11 @@ import { ClipLoader } from 'react-spinners';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+
+import { ClientForm } from '../../components';
+import { Alert, Button, Modal, ModalProps, FormClientInputModel, clientFormValidaon, clientViewModel, ValidationError, ClientService } from '../../../../shared';
+
 import * as S from './add-client-modal.styles'
-import { Alert, Button, Modal, ModalProps, FormClientInputModel, clientFormValidaon, clientViewModel, ValidationError } from '../../../../shared';
-import { ClientService } from '../../../../shared/services';
-import { ClientForm } from '../client-form/client-form';
 
 type Props = Pick<ModalProps, 'isOpen' | 'onRequestClose'> & {
   setData: Dispatch<SetStateAction<clientViewModel[]>>;

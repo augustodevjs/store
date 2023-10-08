@@ -33,6 +33,8 @@ export const RemoveProductModal: React.FC<Props> = ({
   }
 
   const onError = (error: unknown) => {
+    setIsLoading(false);
+
     if (error instanceof ValidationError) {
       Alert.callError({
         title: (error as Error).name,
@@ -45,8 +47,6 @@ export const RemoveProductModal: React.FC<Props> = ({
         description: (error as Error).message,
       });
     }
-
-    setIsLoading(false);
   };
 
   const onConfirm = async () => {

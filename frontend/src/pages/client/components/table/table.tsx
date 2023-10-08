@@ -1,4 +1,5 @@
 import { FaEdit, FaTrash } from "react-icons/fa"
+
 import * as S from './table.styles'
 
 type TableProps = {

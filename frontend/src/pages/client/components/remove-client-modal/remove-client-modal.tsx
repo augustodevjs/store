@@ -1,7 +1,6 @@
 import { FaTrash } from 'react-icons/fa';
 import { Dispatch, SetStateAction, useState } from 'react';
-import { Alert, ConfirmModal, ConfirmModalProps, ModalProps, clientViewModel } from '../../../../shared';
-import { ClientService } from '../../../../shared/services';
+import { Alert, ConfirmModal, ConfirmModalProps, ModalProps, clientViewModel, ClientService, ValidationError } from '../../../../shared';
 
 type Props = Pick<ModalProps, 'isOpen' | 'onRequestClose'> & {
   name?: string;
@@ -20,8 +19,6 @@ export const RemoveClientModal: React.FC<Props> = ({
 
   const onSuccess = async () => {
     if (id) {
-      setIsLoading(true)
-
       await ClientService.remove({ id });
 
       Alert.callSuccess({
@@ -36,13 +33,25 @@ export const RemoveClientModal: React.FC<Props> = ({
   }
 
   const onError = (error: unknown) => {
-    Alert.callError({
-      title: (error as Error).name,
-      description: (error as Error).message,
-    });
+    setIsLoading(false);
+
+    if (error instanceof ValidationError) {
+      Alert.callError({
+        title: (error as Error).name,
+        description: error.errors[0],
+        onConfirm: onRequestClose
+      });
+    } else {
+      Alert.callError({
+        title: (error as Error).name,
+        description: (error as Error).message,
+      });
+    }
   };
 
   const onConfirm = async () => {
+    setIsLoading(true);
+
     try {
       await onSuccess();
     } catch (error) {

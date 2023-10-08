@@ -1,8 +1,8 @@
-import * as S from './styles'
-import { Alert, Button, Header, clientViewModel, useModal } from "../../shared"
-import { AddClientModal, Table, RemoveClientModal, EditClientModal } from "./components"
 import { useEffect, useState } from 'react'
-import { ClientService } from '../../shared/services'
+import { Alert, Button, Header, clientViewModel, useModal, ClientService } from "../../shared"
+import { AddClientModal, Table, RemoveClientModal, EditClientModal } from "./components"
+
+import * as S from './styles'
 
 export const Client = () => {
   const [data, setData] = useState<clientViewModel[]>([])
@@ -80,19 +80,19 @@ export const Client = () => {
           onRequestClose={closeAddModal}
         />
 
-        <RemoveClientModal
-          id={selectedClient?.id.toString()}
-          setData={setData}
-          name={selectedClient?.name}
-          isOpen={isRemoveModalOpen}
-          onRequestClose={closeRemoveModal}
-        />
-
         <EditClientModal
           setData={setData}
-          id={selectedClient?.id.toString()}
           isOpen={isEditModalOpen}
           onRequestClose={closeEditModal}
+          id={selectedClient?.id.toString()}
+        />
+
+        <RemoveClientModal
+          setData={setData}
+          isOpen={isRemoveModalOpen}
+          name={selectedClient?.name}
+          onRequestClose={closeRemoveModal}
+          id={selectedClient?.id.toString()}
         />
       </S.Container>
     </>

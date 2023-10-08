@@ -1,12 +1,13 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { Alert, Button, FormClientInputModel, Modal, ModalProps, ValidationError, clientFormValidaon, clientViewModel } from "../../../../shared";
-import { FormProvider, useForm } from "react-hook-form";
-import { ClipLoader } from "react-spinners";
 import { FaPen } from "react-icons/fa";
-import { ClientForm } from "..";
-import { ClientService } from "../../../../shared/services";
-import * as S from './edit-client-modal.styles'
+import { ClipLoader } from "react-spinners";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { FormProvider, useForm } from "react-hook-form";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+
+import { ClientForm } from "..";
+import { Alert, Button, FormClientInputModel, Modal, ModalProps, ValidationError, clientFormValidaon, clientViewModel, ClientService } from "../../../../shared";
+
+import * as S from './edit-client-modal.styles'
 
 type Props = Pick<ModalProps, 'isOpen' | 'onRequestClose'> & {
   id?: string;

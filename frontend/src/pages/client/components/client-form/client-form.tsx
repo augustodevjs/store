@@ -1,6 +1,7 @@
-import * as S from './client-form.styles'
-import { TextInput, FormClientInputModel } from '../../../../shared';
 import { SubmitHandler, useFormContext } from 'react-hook-form';
+import { TextInput, FormClientInputModel } from '../../../../shared';
+
+import * as S from './client-form.styles'
 
 type Props = {
   onSubmit: SubmitHandler<FormClientInputModel>;
