@@ -25,7 +25,6 @@ public class AutoMapperProfile : Profile
 
         #endregion
 
-
         #region Preference
 
         CreateMap<Preference, PreferenceViewModel>()

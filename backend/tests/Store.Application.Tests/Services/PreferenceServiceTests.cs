@@ -40,7 +40,7 @@ public class PreferenceServiceTests : BaseServiceTest, IClassFixture<ServicesFix
             new()
             {
                 IdClient = 1,
-                IdProducts = 1
+                IdProduct = 1
             }
         };
 
@@ -69,7 +69,7 @@ public class PreferenceServiceTests : BaseServiceTest, IClassFixture<ServicesFix
             new()
             {
                 IdClient = 1,
-                IdProducts = 1
+                IdProduct = 1
             }
         };
 
@@ -98,7 +98,7 @@ public class PreferenceServiceTests : BaseServiceTest, IClassFixture<ServicesFix
             new()
             {
                 IdClient = 2,
-                IdProducts = 1
+                IdProduct = 1
             }
         };
 
@@ -151,7 +151,7 @@ public class PreferenceServiceTests : BaseServiceTest, IClassFixture<ServicesFix
             new()
             {
                 IdClient = 1,
-                IdProducts = 2
+                IdProduct = 2
             }
         };
 
@@ -163,7 +163,7 @@ public class PreferenceServiceTests : BaseServiceTest, IClassFixture<ServicesFix
         {
             preferenceService.Should().BeNull();
             Erros.Should().NotBeEmpty();
-            Erros.Should().Contain($"O produto com o ID {preferenceInputModel[0].IdProducts} não existe.");
+            Erros.Should().Contain($"O produto com o ID {preferenceInputModel[0].IdProduct} não existe.");
             _preferenceRepositoryMock.Verify(c => c.UnityOfWork.Commit(), Times.Never);
             NotificatorMock.Verify(c => c.Handle(It.IsAny<string>()), Times.Once);
             NotificatorMock.Verify(c => c.Handle(It.IsAny<List<ValidationFailure>>()), Times.Never);
@@ -172,6 +172,67 @@ public class PreferenceServiceTests : BaseServiceTest, IClassFixture<ServicesFix
 
     #endregion
 
+    #region delete
+
+    [Fact]
+    public async Task Delete_Preference()
+    {
+        // Arrange
+        SetupMocks();
+
+        // Act
+        await _preferenceService.Delete(1);
+
+        // Assert
+        using (new AssertionScope())
+        {
+            Erros.Should().BeEmpty();
+            _preferenceRepositoryMock.Verify(c => c.GetById(It.IsAny<int>()), Times.Once);
+            _preferenceRepositoryMock.Verify(c => c.UnityOfWork.Commit(), Times.Once);
+        }
+    }
+
+    [Fact]
+    public async Task Delete_Preference_ReturnHandleNotFoundResource()
+    {
+        // Arrange
+        SetupMocks(false);
+    
+        // Act
+        await _preferenceService.Delete(2);
+    
+        // Assert
+        using (new AssertionScope())
+        {
+            NotFound.Should().BeTrue();
+            NotificatorMock.Verify(c => c.HandleNotFoundResource(), Times.Once);
+            _preferenceRepositoryMock.Verify(c => c.GetById(It.IsAny<int>()), Times.Once);
+            _preferenceRepositoryMock.Verify(c => c.UnityOfWork.Commit(), Times.Never);
+        }
+    }
+    
+    [Fact]
+    public async Task Delete_Product_ReturnErrorUnitOfWorkCommit()
+    {
+        // Arrange
+        SetupMocks(false);
+    
+        // Act
+        await _preferenceService.Delete(1);
+    
+        // Assert
+        using (new AssertionScope())
+        {
+            Erros.Should().NotBeEmpty();
+            Erros.Should().NotBeEmpty();
+            Erros.Should().Contain("Não foi possível remover a preferência.");
+            _preferenceRepositoryMock.Verify(c => c.GetById(It.IsAny<int>()), Times.Once);
+            _preferenceRepositoryMock.Verify(c => c.UnityOfWork.Commit(), Times.Once);
+        }
+    }
+
+    #endregion
+    
     #region mock
 
     private void SetupMocks(bool commit = true)
@@ -185,6 +246,15 @@ public class PreferenceServiceTests : BaseServiceTest, IClassFixture<ServicesFix
         {
             Id = 1
         };
+
+        var preference = new Preference
+        {
+            Id = 1
+        };
+        
+        _preferenceRepositoryMock.Setup(c => c.GetById(It.Is<int>(x => x == 1))).ReturnsAsync(preference);
+
+        _preferenceRepositoryMock.Setup(c => c.GetById(It.Is<int>(x => x != 1))).ReturnsAsync(null as Preference);
 
         _productRepositoryMock.Setup(c => c.GetById(It.Is<int>(x => x == 1))).ReturnsAsync(product);
 

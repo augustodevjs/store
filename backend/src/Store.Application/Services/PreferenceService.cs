@@ -48,7 +48,7 @@ public class PreferenceService : BaseService, IPreferenceService
                 return null; 
             }
 
-            var preference = await CreatePreference(inputModel.IdProducts, inputModel.IdClient);
+            var preference = await CreatePreference(inputModel.IdProduct, inputModel.IdClient);
 
             if (preference == null)
             {

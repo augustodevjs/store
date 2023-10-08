@@ -6,7 +6,7 @@ namespace Store.Application.Dto.InputModel
     public class AddPreferenceInputModel
     {
         public int IdClient { get; set; }
-        public int IdProducts { get; set; } = new(); 
+        public int IdProduct { get; set; }
 
         public bool Validar(out ValidationResult validationResult)
         {
@@ -15,10 +15,8 @@ namespace Store.Application.Dto.InputModel
             validator.RuleFor(x => x.IdClient)
                 .NotEqual(0).WithMessage("Insira uma identificação de cliente válida.");
 
-            validator.RuleFor(x => x.IdProducts)
-                .NotEmpty().WithMessage("Insira uma lista de produtos válida.")
-                .Must(nums => nums != 0)
-                .WithMessage("A lista de produtos não pode conter o número zero.");
+            validator.RuleFor(x => x.IdProduct)
+                .NotEqual(0).WithMessage("Insira uma identificação de produto válido.");
 
             validationResult = validator.Validate(this);
             return validationResult.IsValid;
