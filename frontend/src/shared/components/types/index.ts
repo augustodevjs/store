@@ -1,3 +1,5 @@
+import { Props as ReactSelectProps } from 'react-select'
+
 import {
   ButtonHTMLAttributes,
   ComponentType,
@@ -60,4 +62,13 @@ export interface TextAreaInputProps
   label: string;
   isRequired?: boolean;
   error?: string;
+}
+
+export type SelectOption = {
+  value: any;
+  label: string;
+}
+
+export type SelectProps = ReactSelectProps<SelectOption | any> & {
+  placeholder: string;
 }

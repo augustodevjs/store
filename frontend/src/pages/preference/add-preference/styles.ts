@@ -90,3 +90,9 @@ export const SaveButtonGroup = styled.div`
     background-color: #F75A68;
   }
 `;
+
+export const ContainerLoading = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;

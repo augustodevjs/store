@@ -1,14 +1,6 @@
-import { Props as ReactSelectProps } from 'react-select'
+import { Theme } from 'react-select'
+import { SelectProps } from '..'
 import * as S from './styles'
-
-type SelectOption = {
-  value: any;
-  label: string;
-}
-
-export type SelectProps = ReactSelectProps<SelectOption | any> & {
-  placeholder: string;
-}
 
 export const Select = ({ placeholder, ...rest }: SelectProps) => {
   return (
@@ -18,7 +10,7 @@ export const Select = ({ placeholder, ...rest }: SelectProps) => {
       menuPosition="fixed"
       classNamePrefix="select"
       placeholder={placeholder}
-      theme={(theme: any) => ({
+      theme={(theme: Theme) => ({
         ...theme,
         colors: {
           ...theme.colors,

@@ -1,9 +1,9 @@
-import { BiTime } from 'react-icons/bi';
-import { FaEllipsisV } from 'react-icons/fa';
-import { MdList } from 'react-icons/md';
-import * as S from './card.styles';
 import { CardProps } from '../types';
+import { BiTime } from 'react-icons/bi';
+import { MdList } from 'react-icons/md';
+import { FaEllipsisV } from 'react-icons/fa';
 
+import * as S from './card.styles';
 
 export const Card: React.FC<CardProps> = ({
   stateTask,

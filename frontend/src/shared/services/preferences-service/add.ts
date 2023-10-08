@@ -13,8 +13,6 @@ export const add = async ({ data }: Input): Promise<preferenceViewModel[]> => {
     body: data,
   });
 
-  console.log(response)
-
   switch (response.statusCode) {
     case HttpStatusCode.Ok:
       return response.body as preferenceViewModel[];

@@ -1,50 +1,30 @@
 import { useNavigate } from 'react-router-dom';
 import * as S from './styles';
 import { useEffect, useState } from 'react';
-import { Alert, Button, Select, productViewModel, Header, clientViewModel } from '../../../../shared';
-import { ClientService, PreferencesService, ProductService } from '../../../../shared/services';
-import { Table } from '../../components';
-
-type teste = {
-  idClient: number;
-  idProducts: number;
-}
+import { Alert, Button, Select, productViewModel, Header, clientViewModel, preferenceInputModel, SelectOption } from '../../../shared';
+import { ClientService, PreferencesService, ProductService } from '../../../shared/services';
+import { Table } from '../components';
+import { ClipLoader } from 'react-spinners';
 
 export const AddPreference = () => {
   const navigate = useNavigate();
 
-  const [teste, setTeste] = useState<any>([])
-  const [selectedValueProduct, setSelectedValueProduct] = useState<any>(undefined);
-  const [selectedValueClient, setSelectedValueClient] = useState<any | null>(null);
-
-  const [productsData, setProductsData] = useState<productViewModel[]>([]);
-  const [clientsData, setClientsData] = useState<clientViewModel[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [preference, setPreference] = useState<preferenceInputModel[]>([])
+  const [selectedValueClient, setSelectedValueClient] = useState<SelectOption | null>(null);
+  const [selectedValueProduct, setSelectedValueProduct] = useState<SelectOption | null>(null);
 
   const [products, setProducts] = useState<productViewModel[]>([]);
-
-  const addPreference = () => {
-    if (selectedValueClient && selectedValueProduct && selectedValueProduct.length > 0) {
-      const selectedValues = selectedValueProduct.map((p: any) => p.value);
-      const updatedProducts = [...products, ...selectedValues];
-
-      const newPreference: teste = {
-        idClient: selectedValueClient.value,
-        idProducts: selectedValueProduct.map((p: any) => p.value)[0].id
-      };
-
-      setTeste((prevTeste: any) => [...prevTeste, newPreference]);
-      setProducts(updatedProducts);
-
-      clearFilter()
-    }
-  };
+  const [clientsData, setClientsData] = useState<clientViewModel[]>([]);
+  const [productsData, setProductsData] = useState<productViewModel[]>([]);
 
   const loadData = async () => {
     try {
       const clients = await ClientService.getAll();
       const products = await ProductService.getAll();
-      setProductsData(products);
+
       setClientsData(clients);
+      setProductsData(products);
     } catch (error) {
       Alert.callError({
         title: (error as Error).name,
@@ -53,41 +33,58 @@ export const AddPreference = () => {
     }
   };
 
-  useEffect(() => {
-    loadData();
-  }, []);
+  const addPreference = () => {
+    if (selectedValueClient && selectedValueProduct) {
+      const productValues = selectedValueProduct.value;
 
-  const optionsProduct = productsData.map((product) => ({
-    value: product,
-    label: product.title,
-  }));
+      const newPreference: preferenceInputModel = {
+        idClient: selectedValueClient.value,
+        idProduct: selectedValueProduct.value.id
+      }
 
-  const optionsClient = clientsData.map((client) => ({
-    value: client.id,
-    label: client.name,
-  }));
-
-  const handleDelete = (productId: number) => {
-
-    setProducts((prevProducts) => prevProducts.filter((product) => product.id !== productId));
-  };
-
-
-  const clearFilter = () => {
-    setSelectedValueClient(null);
-    setSelectedValueProduct(null);
+      setProducts(prevData => [...prevData, productValues])
+      setPreference(prevData => [...prevData, newPreference])
+      clearFilter();
+    }
   };
 
   const savePreferences = async () => {
+    setIsLoading(true)
+
     await PreferencesService.add({
-      data: teste
+      data: preference
     })
 
     Alert.callSuccess({
       title: 'Preferências cadastradas com sucesso!',
       onConfirm: () => navigate('/preference'),
     });
+
+    setIsLoading(false)
   }
+
+  const handleDelete = (productId: number) => {
+    setProducts((prevProducts) => prevProducts.filter((product) => product.id !== productId));
+  };
+
+  const clearFilter = () => {
+    setSelectedValueClient(null);
+    setSelectedValueProduct(null);
+  };
+
+  const optionsProduct: SelectOption[] = productsData.map((product) => ({
+    value: product,
+    label: product.title,
+  }));
+
+  const optionsClient: SelectOption[] = clientsData.map((client) => ({
+    value: client.id,
+    label: client.name,
+  }));
+
+  useEffect(() => {
+    loadData();
+  }, []);
 
   return (
     <>
@@ -105,7 +102,6 @@ export const AddPreference = () => {
             />
 
             <Select
-              isMulti
               options={optionsProduct}
               value={selectedValueProduct}
               onChange={setSelectedValueProduct}
@@ -152,7 +148,15 @@ export const AddPreference = () => {
 
         <S.SaveButtonGroup>
           <Button onClick={() => navigate('/preference')}>Cancelar</Button>
-          <Button disabled={products.length === 0} onClick={savePreferences}>Salvar</Button>
+          <Button disabled={products.length === 0} onClick={savePreferences}>
+            {isLoading ? (
+              <S.ContainerLoading>
+                <ClipLoader color="#fff" loading size={18} speedMultiplier={1} />
+              </S.ContainerLoading>
+            ) : (
+              'Salvar'
+            )}
+          </Button>
         </S.SaveButtonGroup>
       </S.Container>
     </>

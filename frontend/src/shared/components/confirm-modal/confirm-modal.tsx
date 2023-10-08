@@ -1,8 +1,9 @@
 import { Button } from '..';
 import { IoMdClose } from 'react-icons/io';
 import { ClipLoader } from 'react-spinners';
-import * as S from './confirm-modal.styles';
 import { ConfirmModalProps } from '../types';
+
+import * as S from './confirm-modal.styles';
 
 export const ConfirmModal: React.FC<ConfirmModalProps> = ({
   isOpen,
