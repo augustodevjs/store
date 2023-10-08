@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
+import { Alert, Button, Header, productViewModel, useModal, ProductService } from '../../shared';
+import { AddProductModal, EditProductModal, Table, RemoveProductModal } from './components';
+
 import * as S from './styles'
-import { Alert, Button, Header, productViewModel, useModal } from '../../shared';
-import { ProductService } from '../../shared/services';
-import { AddProductModal, EditProductModal, Table } from './components';
-import { RemoveProductModal } from './components/remove-product-modal/remove-product-modal';
 
 export const Product = () => {
   const [data, setData] = useState<productViewModel[]>([])
@@ -81,19 +80,19 @@ export const Product = () => {
           onRequestClose={closeAddModal}
         />
 
-        <RemoveProductModal
-          id={selectedProduct?.id.toString()}
-          setData={setData}
-          title={selectedProduct?.title}
-          isOpen={isRemoveModalOpen}
-          onRequestClose={closeRemoveModal}
-        />
-
         <EditProductModal
           setData={setData}
-          id={selectedProduct?.id.toString()}
           isOpen={isEditModalOpen}
           onRequestClose={closeEditModal}
+          id={selectedProduct?.id.toString()}
+        />
+
+        <RemoveProductModal
+          setData={setData}
+          isOpen={isRemoveModalOpen}
+          title={selectedProduct?.title}
+          onRequestClose={closeRemoveModal}
+          id={selectedProduct?.id.toString()}
         />
       </S.Container>
     </>

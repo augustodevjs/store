@@ -1,4 +1,4 @@
-import { HttpClient, HttpStatusCode, UnexpectedError, setupStoreApiConfig } from "../..";
+import { HttpClient, HttpStatusCode, UnexpectedError, ValidationError, setupStoreApiConfig } from "../..";
 
 type Input = {
   id: string
@@ -15,6 +15,8 @@ export const remove = async ({ id }: Input) => {
   switch (response.statusCode) {
     case HttpStatusCode.NoContent:
       return;
+    case HttpStatusCode.BadRequest:
+      throw new ValidationError(response.body.erros)
     default:
       throw new UnexpectedError();
   }

@@ -1,4 +1,5 @@
 export * from './table/table'
 export * from './add-product-modal'
-export * from './remove-product-modal'
 export * from './edit-product-modal'
+export * from './remove-product-modal'
+export * from './product-form/product-form'

@@ -1,12 +1,12 @@
-import { Dispatch, SetStateAction, useState } from "react";
-import { Alert, Button, FormProductInputModel, Modal, ModalProps, ValidationError, productFormValidation, productViewModel } from "../../../../shared";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { ClipLoader } from "react-spinners";
-import * as S from './add-product-modal.styles'
-import { ProductService } from "../../../../shared/services";
 import { FaPlus } from "react-icons/fa";
-import { ProductForm } from "../product-form";
+import { ClipLoader } from "react-spinners";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Dispatch, SetStateAction, useState } from "react";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { Alert, Button, FormProductInputModel, Modal, ModalProps, ValidationError, productFormValidation, productViewModel, ProductService } from "../../../../shared";
+import { ProductForm } from "../../components";
+
+import * as S from './add-product-modal.styles'
 
 type Props = Pick<ModalProps, 'isOpen' | 'onRequestClose'> & {
   setData: Dispatch<SetStateAction<productViewModel[]>>;
