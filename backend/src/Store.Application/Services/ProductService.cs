@@ -88,6 +88,14 @@ public class ProductService : BaseService, IProductService
             return;
         }
 
+        var productPreferences = await _productRepository.GetProductsAssociatedClient(id);
+
+        if (productPreferences.Any())
+        {
+            Notificator.Handle("Não é possível remover o produto associado a um ou mais clientes.");
+            return;
+        }
+
         _productRepository.Delete(getProduct);
 
         if (!await _productRepository.UnityOfWork.Commit())

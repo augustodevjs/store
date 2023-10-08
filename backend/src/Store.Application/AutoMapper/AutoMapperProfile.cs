@@ -28,10 +28,11 @@ public class AutoMapperProfile : Profile
 
         #region Preference
 
-        CreateMap<Preference, ProductViewModel>()
-            .ForMember(dest => dest.Title, opt => opt.MapFrom(c => c.Product.Title))
-            .ForMember(dest => dest.Description, opt => opt.MapFrom(c => c.Product.Description))
-            .ForMember(dest => dest.Price, opt => opt.MapFrom(c => c.Product.Price));
+        CreateMap<Preference, PreferenceViewModel>()
+            .ForPath(dest => dest.product.Id, opt => opt.MapFrom(c => c.Product.Id))
+            .ForPath(dest => dest.product.Title, opt => opt.MapFrom(c => c.Product.Title))
+            .ForPath(dest => dest.product.Description, opt => opt.MapFrom(c => c.Product.Description))
+            .ForPath(dest => dest.product.Price, opt => opt.MapFrom(c => c.Product.Price));
 
         CreateMap<Preference, CreateReturnViewModel>();
 

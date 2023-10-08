@@ -17,16 +17,6 @@ public class PreferenceController : MainController
         _preferenceService = preferenceService;
     }
     
-    [HttpGet("products/{id}/user")]
-    [SwaggerOperation(Summary = "Get a user's product preference.")]
-    [ProducesResponseType(typeof(ProductViewModel), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetPreferencesByUser(int id)
-    {
-        var getPreferenceUser = await _preferenceService.GetPreferencesByUser(id);
-        return OkResponse(getPreferenceUser);
-    }
-    
     [HttpPost]
     [SwaggerOperation("Add a new preference")]
     [ProducesResponseType(typeof(List<CreateReturnViewModel>), StatusCodes.Status200OK)]
@@ -38,7 +28,7 @@ public class PreferenceController : MainController
     }
     
     [HttpDelete("{id}")]
-    [SwaggerOperation("Delete a preference")]
+    [SwaggerOperation("Delete a client")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(int id)

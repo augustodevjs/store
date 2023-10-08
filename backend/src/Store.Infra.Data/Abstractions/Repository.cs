@@ -1,13 +1,13 @@
-﻿using System.Linq.Expressions;
+﻿using Store.Domain.Entities;
 using Store.Domain.Contracts;
-using Store.Domain.Contracts.Repository;
-using Store.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 using Store.Infra.Data.Context;
+using Microsoft.EntityFrameworkCore;
+using Store.Domain.Contracts.Repository;
 
 namespace Store.Infra.Data.Abstractions;
 
-public abstract class Repository<T> : IRepository<T> where T: Entity
+public abstract class Repository<T> : IRepository<T> where T : Entity
 {
     private bool _isDisposed;
     private readonly DbSet<T> _dbSet;
@@ -18,19 +18,19 @@ public abstract class Repository<T> : IRepository<T> where T: Entity
         Context = context;
         _dbSet = context.Set<T>();
     }
-    
+
     public IUnityOfWork UnityOfWork => Context;
-        
+
     public async Task<T?> FirstOrDefault(Expression<Func<T, bool>> expression)
     {
         return await _dbSet.AsNoTrackingWithIdentityResolution().Where(expression).FirstOrDefaultAsync();
     }
-    
+
     public virtual async Task<List<T>> GetAll()
     {
         return await _dbSet.ToListAsync();
     }
-    
+
     public virtual async Task<T?> GetById(int? id)
     {
         return await _dbSet.FindAsync(id);
@@ -50,7 +50,7 @@ public abstract class Repository<T> : IRepository<T> where T: Entity
     {
         _dbSet.Remove(entity);
     }
-    
+
     public void Dispose()
     {
         Dispose(true);

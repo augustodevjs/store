@@ -41,6 +41,49 @@ public class ClientServiceTests : BaseServiceTest, IClassFixture<ServicesFixture
 
     #endregion
 
+    #region preferences
+
+    [Fact]
+    public async Task GetPreferencesClient_ReturnListOfPreferenceViewModel()
+    {
+        // Arrange
+        SetupMocks(false, false, true);
+
+        // Act
+        var clientService = await _clientService.GetPreferencesClient(1);
+
+        // Assert
+        using (new AssertionScope())
+        {
+            NotFound.Should().BeFalse();
+            clientService.Should().NotBeNull();
+            clientService.Should().BeOfType<List<PreferenceViewModel>>();
+            NotificatorMock.Verify(c => c.HandleNotFoundResource(), Times.Never);
+            _clientRepositoryMock.Verify(c => c.GetPreferencesClient(It.IsAny<int>()), Times.Once);
+        }
+    }
+    
+    [Fact]
+    public async Task GetPreferencesClient_ReturnHandleNotFoundResource()
+    {
+        // Arrange
+        SetupMocks(false, false, false);
+
+        // Act
+        var clientService = await _clientService.GetPreferencesClient(2);
+
+        // Assert
+        using (new AssertionScope())
+        {
+            NotFound.Should().BeTrue();
+            clientService.Should().BeNull();
+            NotificatorMock.Verify(c => c.HandleNotFoundResource(), Times.Once);
+            _clientRepositoryMock.Verify(c => c.GetPreferencesClient(It.IsAny<int>()), Times.Once);
+        }
+    }
+
+    #endregion
+
     #region getById
 
     [Fact]
@@ -352,7 +395,7 @@ public class ClientServiceTests : BaseServiceTest, IClassFixture<ServicesFixture
     public async Task Delete_Client()
     {
         // Arrange
-        SetupMocks();
+        SetupMocks(false, true, false);
 
         // Act
         await _clientService.Delete(1);
@@ -363,6 +406,7 @@ public class ClientServiceTests : BaseServiceTest, IClassFixture<ServicesFixture
             Erros.Should().BeEmpty();
             _clientRepositoryMock.Verify(c => c.GetById(It.IsAny<int>()), Times.Once);
             _clientRepositoryMock.Verify(c => c.UnityOfWork.Commit(), Times.Once);
+            _clientRepositoryMock.Verify(c => c.GetPreferencesClient(It.IsAny<int>()), Times.Once);
         }
     }
 
@@ -370,11 +414,11 @@ public class ClientServiceTests : BaseServiceTest, IClassFixture<ServicesFixture
     public async Task Delete_Product_ReturnHandleNotFoundResource()
     {
         // Arrange
-        SetupMocks();
-
+        SetupMocks(false, false, false);
+    
         // Act
         await _clientService.Delete(2);
-
+    
         // Assert
         using (new AssertionScope())
         {
@@ -384,16 +428,35 @@ public class ClientServiceTests : BaseServiceTest, IClassFixture<ServicesFixture
             _clientRepositoryMock.Verify(c => c.UnityOfWork.Commit(), Times.Never);
         }
     }
-
+    
+    [Fact]
+    public async Task Delete_Product_ReturnHandleErrorPreference()
+    {
+        // Arrange
+        SetupMocks(false, false);
+    
+        // Act
+        await _clientService.Delete(1);
+    
+        // Assert
+        using (new AssertionScope())
+        {
+            Erros.Should().Contain("Não é possível remover o cliente associado a um ou mais produtos.");
+            NotificatorMock.Verify(c => c.HandleNotFoundResource(), Times.Never);
+            _clientRepositoryMock.Verify(c => c.GetById(It.IsAny<int>()), Times.Once);
+            _clientRepositoryMock.Verify(c => c.UnityOfWork.Commit(), Times.Never);
+        }
+    }
+    
     [Fact]
     public async Task Delete_Product_ReturnErrorUnitOfWorkCommit()
     {
         // Arrange
-        SetupMocks(true, false);
-
+        SetupMocks(true, false, false);
+    
         // Act
         await _clientService.Delete(1);
-
+    
         // Assert
         using (new AssertionScope())
         {
@@ -408,9 +471,25 @@ public class ClientServiceTests : BaseServiceTest, IClassFixture<ServicesFixture
 
     #region mock
 
-    private void SetupMocks(bool firstDefaultAssignment = true, bool commit = true)
+    private void SetupMocks(bool firstDefaultAssignment = true, bool commit = true, bool getPreferencesClient = true)
     {
         var client = new Client { Id = 1 };
+
+        var preferences = new List<Preference>
+        {
+            new()
+            {
+                Id = 1
+            }
+        };
+
+        _clientRepositoryMock
+            .Setup(c => c.GetPreferencesClient(It.IsAny<int>()))
+            .ReturnsAsync(getPreferencesClient ? preferences : new List<Preference>());
+
+        _clientRepositoryMock
+            .Setup(c => c.GetById(It.Is<int>(x => x != 1)))
+            .ReturnsAsync(null as Client);
 
         _clientRepositoryMock
             .Setup(c => c.GetById(It.Is<int>(x => x == 1)))

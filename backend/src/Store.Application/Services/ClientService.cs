@@ -12,7 +12,11 @@ public class ClientService : BaseService, IClientService
 {
     private readonly IClientRepository _clientRepository;
 
-    public ClientService(IMapper mapper, INotificator notificator, IClientRepository clientRepository) : base(mapper,
+    public ClientService(
+        IMapper mapper,
+        INotificator notificator,
+        IClientRepository clientRepository
+    ) : base(mapper,
         notificator)
     {
         _clientRepository = clientRepository;
@@ -20,17 +24,27 @@ public class ClientService : BaseService, IClientService
 
     public async Task<List<ClientViewModel>> GetAll()
     {
-        var getAllClients = await _clientRepository.GetAll();
+        var clients = await _clientRepository.GetAll();
+        return Mapper.Map<List<ClientViewModel>>(clients);
+    }
 
-        return Mapper.Map<List<ClientViewModel>>(getAllClients);
+    public async Task<List<PreferenceViewModel>?> GetPreferencesClient(int id)
+    {
+        var preferencesClient = await _clientRepository.GetPreferencesClient(id);
+
+        if (preferencesClient is { Count: > 0 })
+            return Mapper.Map<List<PreferenceViewModel>>(preferencesClient);
+
+        Notificator.HandleNotFoundResource();
+        return null;
     }
 
     public async Task<ClientViewModel?> GetById(int id)
     {
-        var getClient = await _clientRepository.GetById(id);
+        var client = await _clientRepository.GetById(id);
 
-        if (getClient != null) return Mapper.Map<ClientViewModel>(getClient);
-        
+        if (client != null) return Mapper.Map<ClientViewModel>(client);
+
         Notificator.HandleNotFoundResource();
         return null;
     }
@@ -38,14 +52,14 @@ public class ClientService : BaseService, IClientService
     public async Task<ClientViewModel?> Create(AddClientInputModel inputModel)
     {
         var client = Mapper.Map<Client>(inputModel);
-        
+
         if (!await Validate(client)) return null;
-        
+
         _clientRepository.Create(client);
 
         if (await _clientRepository.UnityOfWork.Commit())
             return Mapper.Map<ClientViewModel>(client);
-        
+
         Notificator.Handle("Não foi possível cadastrar o cliente.");
         return null;
     }
@@ -57,20 +71,20 @@ public class ClientService : BaseService, IClientService
             Notificator.Handle("Os ids não conferem");
             return null;
         }
-        
-        var getClient = await _clientRepository.GetById(id);
 
-        if (getClient == null)
+        var client = await _clientRepository.GetById(id);
+
+        if (client == null)
         {
             Notificator.HandleNotFoundResource();
             return null;
         }
 
-        var result = Mapper.Map(inputModel, getClient);
+        var result = Mapper.Map(inputModel, client);
 
-        if (!await Validate(getClient)) return null;
+        if (!await Validate(client)) return null;
 
-        _clientRepository.Update(getClient);
+        _clientRepository.Update(client);
 
         if (await _clientRepository.UnityOfWork.Commit())
             return Mapper.Map<ClientViewModel>(result);
@@ -89,6 +103,14 @@ public class ClientService : BaseService, IClientService
             return;
         }
 
+        var preferencesClient = await _clientRepository.GetPreferencesClient(id);
+
+        if (preferencesClient.Any())
+        {
+            Notificator.Handle("Não é possível remover o cliente associado a um ou mais produtos.");
+            return;
+        }
+
         _clientRepository.Delete(getClient);
 
         if (!await _clientRepository.UnityOfWork.Commit())
@@ -96,7 +118,7 @@ public class ClientService : BaseService, IClientService
             Notificator.Handle("Não foi possível remover o cliente.");
         }
     }
-    
+
     private async Task<bool> Validate(Client client)
     {
         if (!client.Validar(out var validationResult))
@@ -105,10 +127,11 @@ public class ClientService : BaseService, IClientService
             return false;
         }
 
-        var existingClient = await _clientRepository.FirstOrDefault(u => u.Id != client.Id && (u.Email == client.Email || u.Cpf == client.Cpf));
+        var existingClient = await _clientRepository.FirstOrDefault(u =>
+            u.Id != client.Id && (u.Email == client.Email || u.Cpf == client.Cpf));
 
         if (existingClient == null) return true;
-        
+
         Notificator.Handle("Já existe um cliente com essas informações.");
         return false;
     }

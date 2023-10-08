@@ -48,7 +48,7 @@ public class PreferenceService : BaseService, IPreferenceService
                 return null; 
             }
 
-            var preference = await CreatePreference(inputModel.IdProducts, inputModel.IdClient); // Ajustado para IdProducts
+            var preference = await CreatePreference(inputModel.IdProducts, inputModel.IdClient);
 
             if (preference == null)
             {
@@ -67,7 +67,25 @@ public class PreferenceService : BaseService, IPreferenceService
         return null;
     }
 
-    private async Task<Preference?> CreatePreference(int productId, int clientId) // Ajustado para receber productId
+    public async Task Delete(int id)
+    {
+        var getPreference = await _preferenceRepository.GetById(id);
+
+        if (getPreference == null)
+        {
+            Notificator.HandleNotFoundResource();
+            return;
+        }
+        
+        _preferenceRepository.Delete(getPreference);
+
+        if (!await _preferenceRepository.UnityOfWork.Commit())
+        {
+            Notificator.Handle("Não foi possível remover a preferência.");
+        }
+    }
+
+    private async Task<Preference?> CreatePreference(int productId, int clientId)
     {
         var product = await _productRepository.GetById(productId);
 
@@ -87,36 +105,4 @@ public class PreferenceService : BaseService, IPreferenceService
     
         return preference;
     }
-
-    
-
-    public async Task<List<ProductViewModel>?> GetPreferencesByUser(int id)
-    {
-        var getPreferenceUser = await _preferenceRepository.GetPreferenceOfUser(id);
-
-        if (getPreferenceUser is { Count: > 0 })
-            return Mapper.Map<List<ProductViewModel>>(getPreferenceUser);
-
-        Notificator.HandleNotFoundResource();
-        return null;
-    }
-
-    public async Task Delete(int id)
-    {
-        var getPreference = await _preferenceRepository.GetById(id);
-
-        if (getPreference == null)
-        {
-            Notificator.HandleNotFoundResource();
-            return;
-        }
-
-        _preferenceRepository.Delete(getPreference);
-
-        if (!await _preferenceRepository.UnityOfWork.Commit())
-        {
-            Notificator.Handle("Não foi possível remover a preferência.");
-        }
-    }
-
 }
