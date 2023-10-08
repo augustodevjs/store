@@ -11,9 +11,9 @@ public class ProductRepository : Repository<Product>, IProductRepository
     public ProductRepository(ApplicationDbContext context) : base(context)
     {
     }
-    
-    public async Task<List<Product>> GetProductsAssociatedClient(int productId)
+
+    public async Task<List<Preference>> GetProductsAssociatedClient(int productId)
     {
-        return await Context.Products.Include(c => c.Preferences).Where(c => c.Id == productId).ToListAsync();
+        return await Context.Preferences.Include(c => c.Product).Where(c => c.ProductId == productId).ToListAsync();
     }
 }

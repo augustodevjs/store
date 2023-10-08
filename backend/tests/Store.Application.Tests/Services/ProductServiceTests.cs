@@ -219,21 +219,21 @@ public class ProductServiceTests : BaseServiceTest, IClassFixture<ServicesFixtur
             _productRepositoryMock.Verify(c => c.UnityOfWork.Commit(), Times.Once);
             _productRepositoryMock.Verify(c => c.Update(It.IsAny<Product>()), Times.Once);
             _productRepositoryMock.Verify(c => c.GetById(It.IsAny<int>()), Times.Once);
-    
+
             NotificatorMock.Verify(c => c.Handle(It.IsAny<string>()), Times.Never);
             NotificatorMock.Verify(c => c.Handle(It.IsAny<List<ValidationFailure>>()), Times.Never);
         }
     }
-    
+
     [Fact]
     public async Task Update_InvalidId_ReturnHandleError()
     {
         // Arrange
         SetupMocks();
-    
+
         // Act
         var productService = await _productService.Update(1, new UpdateProductInputModel { Id = 2 });
-    
+
         // Assert
         using (new AssertionScope())
         {
@@ -244,16 +244,16 @@ public class ProductServiceTests : BaseServiceTest, IClassFixture<ServicesFixtur
             _productRepositoryMock.Verify(c => c.Update(It.IsAny<Product>()), Times.Never);
         }
     }
-    
+
     [Fact]
     public async Task Update_Product_ReturnNotFoundResource()
     {
         // Arrange
         SetupMocks();
-    
+
         // Act
         var productService = await _productService.Update(2, new UpdateProductInputModel { Id = 2 });
-    
+
         // Assert
         using (new AssertionScope())
         {
@@ -275,10 +275,10 @@ public class ProductServiceTests : BaseServiceTest, IClassFixture<ServicesFixtur
         {
             Id = 1
         };
-    
+
         // Act
-        var productService = await _productService.Update(1 ,productInputModel);
-    
+        var productService = await _productService.Update(1, productInputModel);
+
         // Assert
         using (new AssertionScope())
         {
@@ -287,13 +287,13 @@ public class ProductServiceTests : BaseServiceTest, IClassFixture<ServicesFixtur
             NotificatorMock.Verify(c => c.Handle(It.IsAny<List<ValidationFailure>>()), Times.Once);
         }
     }
-    
+
     [Fact]
     public async Task Update_Product_HandleErrorUnityOfWorkCommit()
     {
         // Arrange
         SetupMocks(false, false);
-    
+
         var productInputModel = new UpdateProductInputModel
         {
             Id = 1,
@@ -301,10 +301,10 @@ public class ProductServiceTests : BaseServiceTest, IClassFixture<ServicesFixtur
             Price = 10,
             Description = "Teste",
         };
-    
+
         // Act
         var productService = await _productService.Update(1, productInputModel);
-    
+
         // Assert
         using (new AssertionScope())
         {
@@ -316,7 +316,7 @@ public class ProductServiceTests : BaseServiceTest, IClassFixture<ServicesFixtur
             NotificatorMock.Verify(c => c.Handle(It.IsAny<List<ValidationFailure>>()), Times.Never);
         }
     }
-    
+
     [Fact]
     public async Task Update_Product_ReturnHandleErrorProductNameAlreadyExist()
     {
@@ -354,7 +354,7 @@ public class ProductServiceTests : BaseServiceTest, IClassFixture<ServicesFixtur
     public async Task Delete_Product()
     {
         // Arrange
-        SetupMocks();
+        SetupMocks(getProductsAssociatedClient: false);
 
         // Act
         await _productService.Delete(1);
@@ -386,16 +386,37 @@ public class ProductServiceTests : BaseServiceTest, IClassFixture<ServicesFixtur
             _productRepositoryMock.Verify(c => c.UnityOfWork.Commit(), Times.Never);
         }
     }
+    
+    [Fact]
+    public async Task Delete_Product_ReturnHandleErrorAssociatedProductsToClient()
+    {
+        // Arrange
+        SetupMocks(false, false);
+
+        // Act
+        await _productService.Delete(1);
+
+        // Assert
+        using (new AssertionScope())
+        {
+            Erros.Should().NotBeEmpty();
+            Erros.Should().Contain("Não é possível remover o produto associado a um ou mais clientes.");
+            NotificatorMock.Verify(c => c.HandleNotFoundResource(), Times.Never);
+            _productRepositoryMock.Verify(c => c.GetById(It.IsAny<int>()), Times.Once);
+            _productRepositoryMock.Verify(c => c.GetProductsAssociatedClient(It.IsAny<int>()), Times.Once);
+            _productRepositoryMock.Verify(c => c.UnityOfWork.Commit(), Times.Never);
+        }
+    }
 
     [Fact]
     public async Task Delete_Product_ReturnErrorUnitOfWorkCommit()
     {
         // Arrange
-        SetupMocks(true, false);
-
+        SetupMocks(true, false, false);
+    
         // Act
         await _productService.Delete(1);
-
+    
         // Assert
         using (new AssertionScope())
         {
@@ -410,9 +431,21 @@ public class ProductServiceTests : BaseServiceTest, IClassFixture<ServicesFixtur
 
     #region mock
 
-    private void SetupMocks(bool firstDefaultAssignment = true, bool commit = true)
+    private void SetupMocks(bool firstDefaultAssignment = true, bool commit = true,
+        bool getProductsAssociatedClient = true)
     {
         var product = new Product { Id = 1 };
+
+        var preferences = new List<Preference>
+        {
+            new()
+            {
+                Id = 1,
+            }
+        };
+
+        _productRepositoryMock.Setup(c => c.GetProductsAssociatedClient(It.IsAny<int>()))
+            .ReturnsAsync(getProductsAssociatedClient ? preferences : new List<Preference>());
 
         _productRepositoryMock
             .Setup(c => c.GetById(It.Is<int>(x => x == 1)))
