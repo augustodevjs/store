@@ -11,6 +11,12 @@ export const Container = styled.div`
     margin: 0 auto;
     gap: 1rem;
   }
+
+  @media(max-width: 410px) {
+    .main {
+      flex-direction: column;
+    }
+  }
 `
 
 export const Links = styled.ul`
@@ -25,5 +31,9 @@ export const Links = styled.ul`
     &:hover {
       color: #a1a1a1;
     }
+  }
+
+  @media(max-width: 410px) {
+    justify-content: start;
   }
 `

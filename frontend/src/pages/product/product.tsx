@@ -57,11 +57,11 @@ export const Product = () => {
             {data.map(data => (
               <Table
                 key={data.id}
+                price={data.price}
                 title={data.title}
                 description={data.description}
-                price={data.price}
-                onDelete={() => handleRemove(data)}
                 onEdit={() => handleEdit(data)}
+                onDelete={() => handleRemove(data)}
               />
             ))}
           </ul>

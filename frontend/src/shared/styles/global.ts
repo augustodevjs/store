@@ -77,7 +77,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .html-sweet-alert {
-    color: #C4C4CC;
+    color: #C4C4CC !important;
   }
 
   .confirm-button-sweet-alert {

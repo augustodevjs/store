@@ -10,7 +10,7 @@ export const Header = () => {
 
   return (
     <S.Container>
-      <div>
+      <div className='main'>
         <h1>Store</h1>
         <S.Links>
           <li onClick={() => handleNavigate('/preference')}>Preferência</li>

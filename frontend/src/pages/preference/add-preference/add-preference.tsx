@@ -61,8 +61,8 @@ export const AddPreference = () => {
     setIsLoading(false)
   }
 
-  const handleDelete = (productId: number) => {
-    setProducts((prevProducts) => prevProducts.filter((product) => product.id !== productId));
+  const handleDelete = (index: number) => {
+    setProducts((prevProducts) => prevProducts.filter((_, productIndex) => productIndex !== index));
   };
 
   const clearFilter = () => {
@@ -106,14 +106,14 @@ export const AddPreference = () => {
 
           <S.ButtonGroup>
             <Button
-              disabled={!selectedValueClient || !selectedValueProduct}
               onClick={addPreference}
+              disabled={!selectedValueClient || !selectedValueProduct}
             >
               Adicionar
             </Button>
             <Button
-              disabled={!selectedValueClient && !selectedValueProduct}
               onClick={clearFilter}
+              disabled={!selectedValueClient && !selectedValueProduct}
             >
               Limpar Filtros
             </Button>
@@ -126,13 +126,13 @@ export const AddPreference = () => {
       {products.length !== 0 ? (
         <S.Tasks>
           <ul>
-            {products.map((data) => (
+            {products.map((data, index) => (
               <Table
-                key={data.id}
+                key={index}
+                price={data.price}
                 title={data.title}
                 description={data.description}
-                price={data.price}
-                onDelete={() => handleDelete(data.id)}
+                onDelete={() => handleDelete(index)}
               />
             ))}
           </ul>
@@ -143,7 +143,12 @@ export const AddPreference = () => {
 
       <S.SaveButtonGroup>
         <Button onClick={() => navigate('/preference')}>Cancelar</Button>
-        <Button isLoading={isLoading} disabled={products.length === 0} onClick={savePreferences}>
+
+        <Button
+          isLoading={isLoading}
+          disabled={products.length === 0}
+          onClick={savePreferences
+          }>
           Salvar
         </Button>
       </S.SaveButtonGroup>

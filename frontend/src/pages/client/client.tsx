@@ -57,11 +57,11 @@ export const Client = () => {
             {data.map(data => (
               <Table
                 key={data.id}
-                name={data.name}
                 cpf={data.cpf}
+                name={data.name}
                 email={data.email}
-                onDelete={() => handleRemove(data)}
                 onEdit={() => handleEdit(data)}
+                onDelete={() => handleRemove(data)}
               />
             ))}
           </ul>

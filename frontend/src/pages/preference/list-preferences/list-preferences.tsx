@@ -69,19 +69,32 @@ export const Preference = () => {
           <div className="filter">
             <Select
               isClearable
-              value={selectedValueClient}
               options={clientOptions}
+              value={selectedValueClient}
               onChange={setSelectedValueClient}
               placeholder="Selecione o cliente"
             />
-            <Button onClick={searchPreferences} disabled={!selectedValueClient}>Buscar</Button>
-            <Button disabled={preferencesData.length === 0} onClick={clearPreferences}>
+            <Button
+              onClick={searchPreferences}
+              disabled={!selectedValueClient}
+            >
+              Buscar
+            </Button>
+
+            <Button
+              disabled={preferencesData.length === 0}
+              onClick={clearPreferences}
+            >
               Limpar preferências
             </Button>
           </div>
 
           <S.ButtonGroup>
-            <Button onClick={() => navigate('/preference/cadastro')}>Novo preferência</Button>
+            <Button
+              onClick={() => navigate('/preference/cadastro')}
+            >
+              Novo preferência
+            </Button>
           </S.ButtonGroup>
         </S.Search>
 
