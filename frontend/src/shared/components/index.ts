@@ -8,3 +8,4 @@ export * from './text-input/text-input';
 export * from './icon-button/icon-button';
 export * from './confirm-modal/confirm-modal';
 export * from './text-area-input/text-area-input';
+export * from './layout/main-layout'

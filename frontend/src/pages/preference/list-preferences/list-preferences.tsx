@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RemovePreferenceModal, Table } from '../components';
-import { Alert, Button, Select, Header, ClientService, SelectOption, preferenceClientViewModel, clientViewModel, useModal } from '../../../shared';
+import { Alert, Button, Select, ClientService, SelectOption, preferenceClientViewModel, clientViewModel, useModal } from '../../../shared';
 
 import * as S from './styles';
 
@@ -63,7 +63,6 @@ export const Preference = () => {
 
   return (
     <>
-      <Header />
       <S.Container>
         <h1>Lista de Preferências</h1>
         <S.Search>

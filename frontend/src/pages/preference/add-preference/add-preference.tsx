@@ -1,9 +1,8 @@
-import { useNavigate } from 'react-router-dom';
-import * as S from './styles';
 import { useEffect, useState } from 'react';
-import { Alert, Button, Select, productViewModel, Header, clientViewModel, preferenceInputModel, SelectOption } from '../../../shared';
-import { ClientService, PreferencesService, ProductService } from '../../../shared/services';
+import { useNavigate } from 'react-router-dom';
 import { Table } from '../components';
+import { Alert, Button, Select, productViewModel, clientViewModel, preferenceInputModel, SelectOption, ClientService, PreferencesService, ProductService } from '../../../shared';
+import * as S from './styles';
 
 export const AddPreference = () => {
   const navigate = useNavigate();
@@ -86,72 +85,68 @@ export const AddPreference = () => {
   }, []);
 
   return (
-    <>
-      <Header />
+    <S.Container>
+      <h1>Cadastrar Preferência</h1>
+      <S.Search>
+        <div className='filter'>
+          <Select
+            options={optionsClient}
+            value={selectedValueClient}
+            onChange={setSelectedValueClient}
+            placeholder="Selecione o cliente"
+          />
 
-      <S.Container>
-        <h1>Cadastrar Preferência</h1>
-        <S.Search>
-          <div className='filter'>
-            <Select
-              options={optionsClient}
-              value={selectedValueClient}
-              onChange={setSelectedValueClient}
-              placeholder="Selecione o cliente"
-            />
+          <Select
+            options={optionsProduct}
+            value={selectedValueProduct}
+            onChange={setSelectedValueProduct}
+            placeholder="Selecione os produtos"
+            isDisabled={!selectedValueClient}
+          />
 
-            <Select
-              options={optionsProduct}
-              value={selectedValueProduct}
-              onChange={setSelectedValueProduct}
-              placeholder="Selecione os produtos"
-              isDisabled={!selectedValueClient}
-            />
+          <S.ButtonGroup>
+            <Button
+              disabled={!selectedValueClient || !selectedValueProduct}
+              onClick={addPreference}
+            >
+              Adicionar
+            </Button>
+            <Button
+              disabled={!selectedValueClient && !selectedValueProduct}
+              onClick={clearFilter}
+            >
+              Limpar Filtros
+            </Button>
+          </S.ButtonGroup>
+        </div>
 
-            <S.ButtonGroup>
-              <Button
-                disabled={!selectedValueClient || !selectedValueProduct}
-                onClick={addPreference}
-              >
-                Adicionar
-              </Button>
-              <Button
-                disabled={!selectedValueClient && !selectedValueProduct}
-                onClick={clearFilter}
-              >
-                Limpar Filtros
-              </Button>
-            </S.ButtonGroup>
-          </div>
+        <Button onClick={() => navigate('/preference')}>Voltar</Button>
+      </S.Search>
 
-          <Button onClick={() => navigate('/preference')}>Voltar</Button>
-        </S.Search>
+      {products.length !== 0 ? (
+        <S.Tasks>
+          <ul>
+            {products.map((data) => (
+              <Table
+                key={data.id}
+                title={data.title}
+                description={data.description}
+                price={data.price}
+                onDelete={() => handleDelete(data.id)}
+              />
+            ))}
+          </ul>
+        </S.Tasks>
+      ) : (
+        <S.NoData>Não há produtos para exibir</S.NoData>
+      )}
 
-        {products.length !== 0 ? (
-          <S.Tasks>
-            <ul>
-              {products.map((data) => (
-                <Table
-                  key={data.id}
-                  title={data.title}
-                  description={data.description}
-                  price={data.price}
-                  onDelete={() => handleDelete(data.id)}
-                />
-              ))}
-            </ul>
-          </S.Tasks>
-        ) : (
-          <S.NoData>Não há produtos para exibir</S.NoData>
-        )}
-
-        <S.SaveButtonGroup>
-          <Button onClick={() => navigate('/preference')}>Cancelar</Button>
-          <Button isLoading={isLoading} disabled={products.length === 0} onClick={savePreferences}>
-            Salvar
-          </Button>
-        </S.SaveButtonGroup>
-      </S.Container>
-    </>
+      <S.SaveButtonGroup>
+        <Button onClick={() => navigate('/preference')}>Cancelar</Button>
+        <Button isLoading={isLoading} disabled={products.length === 0} onClick={savePreferences}>
+          Salvar
+        </Button>
+      </S.SaveButtonGroup>
+    </S.Container>
   );
 };

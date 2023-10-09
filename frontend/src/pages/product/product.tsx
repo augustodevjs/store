@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Alert, Button, Header, productViewModel, useModal, ProductService } from '../../shared';
+import { Alert, Button, productViewModel, useModal, ProductService } from '../../shared';
 import { AddProductModal, EditProductModal, Table, RemoveProductModal } from './components';
 
 import * as S from './styles'
@@ -39,62 +39,59 @@ export const Product = () => {
   }, [])
 
   return (
-    <>
-      <Header />
-      <S.Container>
-        <S.Header>
-          <S.Content>
-            <h1>Listagem de produtos</h1>
-          </S.Content>
+    <S.Container>
+      <S.Header>
+        <S.Content>
+          <h1>Listagem de produtos</h1>
+        </S.Content>
 
-          <S.ButtonGroup>
-            <Button onClick={openAddModal}>Novo Produto</Button>
-          </S.ButtonGroup>
-        </S.Header>
+        <S.ButtonGroup>
+          <Button onClick={openAddModal}>Novo Produto</Button>
+        </S.ButtonGroup>
+      </S.Header>
 
-        {data.length !== 0 ? (
+      {data.length !== 0 ? (
 
-          <S.Tasks>
-            <ul>
-              {data.map(data => (
-                <Table
-                  key={data.id}
-                  title={data.title}
-                  description={data.description}
-                  price={data.price}
-                  onDelete={() => handleRemove(data)}
-                  onEdit={() => handleEdit(data)}
-                />
-              ))}
-            </ul>
-          </S.Tasks>
-        ) : (
-          <S.NoData>
-            Não há produtos para exibir
-          </S.NoData>
-        )}
+        <S.Tasks>
+          <ul>
+            {data.map(data => (
+              <Table
+                key={data.id}
+                title={data.title}
+                description={data.description}
+                price={data.price}
+                onDelete={() => handleRemove(data)}
+                onEdit={() => handleEdit(data)}
+              />
+            ))}
+          </ul>
+        </S.Tasks>
+      ) : (
+        <S.NoData>
+          Não há produtos para exibir
+        </S.NoData>
+      )}
 
-        <AddProductModal
-          setData={setData}
-          isOpen={isAddModalOpen}
-          onRequestClose={closeAddModal}
-        />
+      <AddProductModal
+        setData={setData}
+        isOpen={isAddModalOpen}
+        onRequestClose={closeAddModal}
+      />
 
-        <EditProductModal
-          setData={setData}
-          isOpen={isEditModalOpen}
-          onRequestClose={closeEditModal}
-          id={selectedProduct?.id.toString()}
-        />
+      <EditProductModal
+        setData={setData}
+        isOpen={isEditModalOpen}
+        onRequestClose={closeEditModal}
+        id={selectedProduct?.id.toString()}
+      />
 
-        <RemoveProductModal
-          setData={setData}
-          isOpen={isRemoveModalOpen}
-          title={selectedProduct?.title}
-          onRequestClose={closeRemoveModal}
-          id={selectedProduct?.id.toString()}
-        />
-      </S.Container>
-    </>
+      <RemoveProductModal
+        setData={setData}
+        isOpen={isRemoveModalOpen}
+        title={selectedProduct?.title}
+        onRequestClose={closeRemoveModal}
+        id={selectedProduct?.id.toString()}
+      />
+    </S.Container>
   )
 }
