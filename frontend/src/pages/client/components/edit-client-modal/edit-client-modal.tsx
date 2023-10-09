@@ -2,7 +2,7 @@ import { FaPen } from "react-icons/fa";
 import { ClipLoader } from "react-spinners";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormProvider, useForm } from "react-hook-form";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
 
 import { ClientForm } from "..";
 import { Alert, Button, FormClientInputModel, Modal, ModalProps, ValidationError, clientFormValidaon, clientViewModel, ClientService } from "../../../../shared";
@@ -27,7 +27,7 @@ export const EditClientModal: React.FC<Props> = ({
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     try {
       if (id) {
         const response = await ClientService.loadById({ id: Number(id) });
@@ -39,11 +39,11 @@ export const EditClientModal: React.FC<Props> = ({
         description: (error as Error).message,
       });
     }
-  }
+  }, [form, id])
 
   useEffect(() => {
     loadData()
-  }, [id]);
+  }, [id, loadData]);
 
   const onSuccess = async (data: FormClientInputModel) => {
     if (id) {

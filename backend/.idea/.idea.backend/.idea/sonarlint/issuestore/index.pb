@@ -141,3 +141,5 @@ t
 Dsrc/Store.Infra.Data/Migrations/ApplicationDbContextModelSnapshot.cs,9\f\9fd59f81e1df604418db19bf59e819621c852157
 i
 9src/Store.Infra.Data/Migrations/20231005172019_Initial.cs,2\8\2802edfc81d659e224ce8d04ad131faa0844957a
+j
+:src/Store.Application/Dto/ViewModel/PreferenceViewModel.cs,1\3\1350fc48aec39b6cd56d77a22fa842b4e611376a

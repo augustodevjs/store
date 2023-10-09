@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RemovePreferenceModal, Table } from '../components';
 import { Alert, Button, Select, Header, ClientService, SelectOption, preferenceClientViewModel, clientViewModel, useModal } from '../../../shared';
@@ -20,14 +20,14 @@ export const Preference = () => {
     openRemoveModal();
   };
 
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     try {
       const clients = await ClientService.getAll();
       setClientsData(clients);
     } catch (error) {
       handleError(error as Error);
     }
-  };
+  }, [setClientsData]);
 
   const searchPreferences = async () => {
     try {
@@ -59,7 +59,7 @@ export const Preference = () => {
 
   useEffect(() => {
     loadData();
-  }, [selectedValueClient]);
+  }, [selectedValueClient, loadData]);
 
   return (
     <>

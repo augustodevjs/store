@@ -2,7 +2,7 @@ import { FaPen } from "react-icons/fa";
 import { ClipLoader } from "react-spinners";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormProvider, useForm } from "react-hook-form";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
 import { Alert, Button, FormProductInputModel, Modal, ModalProps, ValidationError, productFormValidation, productViewModel, ProductService } from "../../../../shared";
 import { ProductForm } from "../../components";
 
@@ -26,7 +26,7 @@ export const EditProductModal: React.FC<Props> = ({
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     try {
       if (id) {
         const response = await ProductService.loadById({ id: Number(id) });
@@ -38,11 +38,11 @@ export const EditProductModal: React.FC<Props> = ({
         description: (error as Error).message,
       });
     }
-  }
+  }, [form, id])
 
   useEffect(() => {
     loadData()
-  }, [id]);
+  }, [id, loadData]);
 
   const onSuccess = async (data: FormProductInputModel) => {
     if (id) {
