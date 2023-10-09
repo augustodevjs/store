@@ -1,12 +1,9 @@
 import { FaPen } from "react-icons/fa";
-import { ClipLoader } from "react-spinners";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormProvider, useForm } from "react-hook-form";
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
 import { Alert, Button, FormProductInputModel, Modal, ModalProps, ValidationError, productFormValidation, productViewModel, ProductService } from "../../../../shared";
 import { ProductForm } from "../../components";
-
-import * as S from './edit-product-modal.styles'
 
 type Props = Pick<ModalProps, 'isOpen' | 'onRequestClose'> & {
   id?: string;
@@ -97,14 +94,9 @@ export const EditProductModal: React.FC<Props> = ({
       disabled={!form.formState.isValid}
       form="edit-product-form"
       variant="primary"
+      isLoading={isLoading}
     >
-      {isLoading ? (
-        <S.ContainerLoading>
-          <ClipLoader color="#fff" loading size={18} speedMultiplier={1} />
-        </S.ContainerLoading>
-      ) : (
-        'Salvar'
-      )}
+      Salvar
     </Button>
   );
 

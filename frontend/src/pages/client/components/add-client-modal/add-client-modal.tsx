@@ -1,13 +1,10 @@
 import { FaPlus } from 'react-icons/fa';
-import { ClipLoader } from 'react-spinners';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import { ClientForm } from '../../components';
 import { Alert, Button, Modal, ModalProps, FormClientInputModel, clientFormValidaon, clientViewModel, ValidationError, ClientService } from '../../../../shared';
-
-import * as S from './add-client-modal.styles'
 
 type Props = Pick<ModalProps, 'isOpen' | 'onRequestClose'> & {
   setData: Dispatch<SetStateAction<clientViewModel[]>>;
@@ -31,14 +28,9 @@ export const AddClientModal: React.FC<Props> = ({
       disabled={!form.formState.isValid}
       form="add-client-form"
       variant="primary"
+      isLoading={isLoading}
     >
-      {isLoading ? (
-        <S.ContainerLoading>
-          <ClipLoader color="#fff" loading size={18} speedMultiplier={1} />
-        </S.ContainerLoading>
-      ) : (
-        'Salvar'
-      )}
+      Salvar
     </Button>
   );
 

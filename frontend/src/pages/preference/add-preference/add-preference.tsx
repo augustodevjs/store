@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { Alert, Button, Select, productViewModel, Header, clientViewModel, preferenceInputModel, SelectOption } from '../../../shared';
 import { ClientService, PreferencesService, ProductService } from '../../../shared/services';
 import { Table } from '../components';
-import { ClipLoader } from 'react-spinners';
 
 export const AddPreference = () => {
   const navigate = useNavigate();
@@ -148,14 +147,8 @@ export const AddPreference = () => {
 
         <S.SaveButtonGroup>
           <Button onClick={() => navigate('/preference')}>Cancelar</Button>
-          <Button disabled={products.length === 0} onClick={savePreferences}>
-            {isLoading ? (
-              <S.ContainerLoading>
-                <ClipLoader color="#fff" loading size={18} speedMultiplier={1} />
-              </S.ContainerLoading>
-            ) : (
-              'Salvar'
-            )}
+          <Button isLoading={isLoading} disabled={products.length === 0} onClick={savePreferences}>
+            Salvar
           </Button>
         </S.SaveButtonGroup>
       </S.Container>

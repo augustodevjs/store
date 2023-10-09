@@ -1,6 +1,5 @@
 import { Button } from '..';
 import { IoMdClose } from 'react-icons/io';
-import { ClipLoader } from 'react-spinners';
 import { ConfirmModalProps } from '../types';
 
 import * as S from './confirm-modal.styles';
@@ -13,7 +12,7 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
   title,
   size,
   onConfirm,
-  isLoading,
+  isLoading
 }) => {
   return (
     <S.Modal
@@ -37,14 +36,8 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
         <Button variant="danger" onClick={onRequestClose}>
           Fechar
         </Button>
-        <Button onClick={onConfirm}>
-          {isLoading ? (
-            <S.ContainerLoading>
-              <ClipLoader color="#fff" loading size={18} speedMultiplier={1} />
-            </S.ContainerLoading>
-          ) : (
-            'Confirmar'
-          )}
+        <Button isLoading={isLoading} onClick={onConfirm}>
+          Confirmar
         </Button>
       </S.ButtonGroup>
     </S.Modal>

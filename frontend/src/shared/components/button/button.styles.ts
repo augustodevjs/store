@@ -63,3 +63,9 @@ export const Button = styled.button<Props>`
     }
   }}
 `;
+
+export const ContainerLoading = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;

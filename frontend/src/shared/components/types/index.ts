@@ -12,6 +12,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   transparent?: boolean;
   variant?: 'primary' | 'danger' | 'info';
   disabled?: boolean;
+  isLoading?: boolean;
 }
 
 export type CardProps = {
@@ -54,7 +55,7 @@ export type ModalProps = {
 export interface ConfirmModalProps extends ModalProps {
   onConfirm: () => void;
   message?: string;
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 
 export interface TextAreaInputProps
