@@ -8,9 +8,6 @@ export type preferenceViewModel = {
   productId: number;
 }
 
-
-// Nova tipagem
-
 type productPreference = {
   id: number;
   price: number;
