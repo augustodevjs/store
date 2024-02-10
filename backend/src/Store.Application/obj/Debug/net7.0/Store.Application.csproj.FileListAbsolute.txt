@@ -15,3 +15,4 @@ C:\Users\joaoa\source\repos\teste-tecnico\backend\src\Store.Application\obj\Debu
 C:\Users\joaoa\source\repos\teste-tecnico\backend\src\Store.Application\obj\Debug\net7.0\refint\Store.Application.dll
 C:\Users\joaoa\source\repos\teste-tecnico\backend\src\Store.Application\obj\Debug\net7.0\Store.Application.pdb
 C:\Users\joaoa\source\repos\teste-tecnico\backend\src\Store.Application\obj\Debug\net7.0\ref\Store.Application.dll
+C:\Users\joaoa\source\repos\teste-tecnico\backend\src\Store.Application\obj\Debug\net7.0\Store.Application.sourcelink.json

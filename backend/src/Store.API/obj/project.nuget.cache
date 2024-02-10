@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Gf9YkYHhKtx+JouHIzohAuIoE6xtcxSHhF4Z+2A/dne5Jenw6vLcr375By9t5BVfWS7mLL3d+a80qHXiOzG6HQ==",
+  "dgSpecHash": "roxz1TWAMSW08lzo+wl3NBKcEJ1tiSHM7Im/+w3v1F2EHfrum6e9zHeVtzWOb9SpEa05Nc/rUn6wnR0YLqDoEw==",
   "success": true,
   "projectFilePath": "C:\\Users\\joaoa\\source\\repos\\teste-tecnico\\backend\\src\\Store.API\\Store.API.csproj",
   "expectedPackageFiles": [
@@ -29,6 +29,7 @@
     "C:\\Users\\joaoa\\.nuget\\packages\\microsoft.extensions.options\\7.0.0\\microsoft.extensions.options.7.0.0.nupkg.sha512",
     "C:\\Users\\joaoa\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512",
     "C:\\Users\\joaoa\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",
+    "C:\\Users\\joaoa\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.19.5\\microsoft.visualstudio.azure.containers.tools.targets.1.19.5.nupkg.sha512",
     "C:\\Users\\joaoa\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
     "C:\\Users\\joaoa\\.nuget\\packages\\mysqlconnector\\2.2.5\\mysqlconnector.2.2.5.nupkg.sha512",
     "C:\\Users\\joaoa\\.nuget\\packages\\npgsql\\7.0.4\\npgsql.7.0.4.nupkg.sha512",

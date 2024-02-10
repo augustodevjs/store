@@ -10,3 +10,4 @@ C:\Users\joaoa\source\repos\teste-tecnico\backend\src\Store.Domain\obj\Debug\net
 C:\Users\joaoa\source\repos\teste-tecnico\backend\src\Store.Domain\obj\Debug\net7.0\refint\Store.Domain.dll
 C:\Users\joaoa\source\repos\teste-tecnico\backend\src\Store.Domain\obj\Debug\net7.0\Store.Domain.pdb
 C:\Users\joaoa\source\repos\teste-tecnico\backend\src\Store.Domain\obj\Debug\net7.0\ref\Store.Domain.dll
+C:\Users\joaoa\source\repos\teste-tecnico\backend\src\Store.Domain\obj\Debug\net7.0\Store.Domain.sourcelink.json

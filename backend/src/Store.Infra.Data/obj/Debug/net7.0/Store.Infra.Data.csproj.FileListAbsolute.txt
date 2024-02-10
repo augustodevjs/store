@@ -15,3 +15,4 @@ C:\Users\joaoa\source\repos\teste-tecnico\backend\src\Store.Infra.Data\obj\Debug
 C:\Users\joaoa\source\repos\teste-tecnico\backend\src\Store.Infra.Data\obj\Debug\net7.0\Store.Infra.Data.pdb
 C:\Users\joaoa\source\repos\teste-tecnico\backend\src\Store.Infra.Data\obj\Debug\net7.0\Store.Infra.Data.genruntimeconfig.cache
 C:\Users\joaoa\source\repos\teste-tecnico\backend\src\Store.Infra.Data\obj\Debug\net7.0\ref\Store.Infra.Data.dll
+C:\Users\joaoa\source\repos\teste-tecnico\backend\src\Store.Infra.Data\obj\Debug\net7.0\Store.Infra.Data.sourcelink.json

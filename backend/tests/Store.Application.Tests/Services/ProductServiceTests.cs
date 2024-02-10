@@ -187,7 +187,7 @@ public class ProductServiceTests : BaseServiceTest, IClassFixture<ServicesFixtur
             NotificatorMock.Verify(c => c.Handle(It.IsAny<List<ValidationFailure>>()), Times.Never);
         }
     }
-
+    
     #endregion
 
     #region update
